@@ -93,26 +93,38 @@ body {
 }
 
 /* ===== Micro-animations: reveal on scroll (respects reduced motion) ===== */
+/* OUTER: mantiene il layout */
 .fn-reveal {
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+/* INNER: animazione */
+.fn-reveal__inner {
   opacity: 0;
-  transform: translateY(var(--fn-reveal-y, 12px));
+  transform: translate3d(0, var(--fn-reveal-y, 12px), 0);
   transition: opacity 600ms ease, transform 600ms ease;
   transition-delay: var(--fn-reveal-delay, 0ms);
   will-change: transform, opacity;
+  transform-origin: center;
 }
 
-.fn-reveal.is-visible {
+/* stato visibile */
+.fn-reveal__inner.is-visible {
   opacity: 1;
-  transform: none;
+  transform: translate3d(0, 0, 0);
 }
 
+/* accessibilità: se l’utente disattiva le animazioni */
 @media (prefers-reduced-motion: reduce) {
-  .fn-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  .fn-reveal__inner {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
+
 /* ===== Micro-animations: bounce on hover ===== */
 @keyframes fn-bounce-scale {
   0% {

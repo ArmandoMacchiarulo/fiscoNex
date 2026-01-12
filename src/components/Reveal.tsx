@@ -22,7 +22,6 @@ export default function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    // Fallback: if IntersectionObserver not available
     if (typeof IntersectionObserver === "undefined") {
       setVisible(true);
       return;
@@ -32,6 +31,7 @@ export default function Reveal({
       (entries) => {
         const entry = entries[0];
         if (!entry) return;
+
         if (entry.isIntersecting) {
           setVisible(true);
           if (once) io.disconnect();
@@ -40,7 +40,6 @@ export default function Reveal({
         }
       },
       {
-        // slightly before it fully enters the viewport
         root: null,
         rootMargin: "0px 0px -10% 0px",
         threshold: 0.15,
@@ -54,16 +53,24 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      className={`fn-reveal ${visible ? "is-visible" : ""} ${className}`}
+      // Outer wrapper: MUST keep layout (Firefox SVG 0x0 fix)
+      className={`fn-reveal ${className}`}
       style={
         {
+          width: "100%",
+          display: "block",
+          // keep layout stable in all browsers
+          position: "relative",
           // CSS vars used by globals.css
           "--fn-reveal-delay": `${delayMs}ms`,
           "--fn-reveal-y": `${y}px`,
         } as React.CSSProperties
       }
     >
-      {children}
+      {/* Inner wrapper: animation target */}
+      <div className={`fn-reveal__inner ${visible ? "is-visible" : ""}`}>
+        {children}
+      </div>
     </div>
   );
 }

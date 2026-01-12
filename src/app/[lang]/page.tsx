@@ -1,8 +1,8 @@
 import Reveal from "@/components/Reveal";
+import { asset } from "@/lib/asset";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import Link from "next/link";
-import { asset } from "@/lib/asset";
 
 function Section({
   bgUrl,
