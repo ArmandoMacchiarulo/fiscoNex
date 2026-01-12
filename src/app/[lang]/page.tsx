@@ -2,6 +2,7 @@ import Reveal from "@/components/Reveal";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 function Section({
   bgUrl,
@@ -50,7 +51,7 @@ export default async function Home({
       >
         {otherLang}
       </Link>
-      <Section bgUrl="/images/mission.jpg">
+      <Section bgUrl={asset("/images/mission.jpg")}>
         <div
           className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
           style={{ minHeight: "100dvh" }}
@@ -59,7 +60,7 @@ export default async function Home({
           <Reveal>
             <div className="mx-auto w-full max-w-xl">
               <img
-                src="/images/FiscoNex-logo.svg"
+                src={asset("/images/FiscoNex-logo.svg")}
                 alt={t.missionTitle}
                 className="w-full h-auto"
               />
@@ -83,7 +84,7 @@ export default async function Home({
               className="fn-arrow-link"
             >
               <img
-                src="/images/down.webp"
+                src={asset("/images/down.webp")}
                 alt="down arrow"
                 className="d-block fn-down-arrow"
                 style={{ width: 44, height: 44, opacity: 0.65 }}
@@ -93,7 +94,7 @@ export default async function Home({
         </div>
       </Section>
 
-      <Section id="section-2" bgUrl="/images/scelta.jpg">
+      <Section id="section-2" bgUrl={asset("/images/scelta.jpg")}>
         <div
           className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
           style={{ minHeight: "100dvh" }}
@@ -115,7 +116,7 @@ export default async function Home({
                 }}
               >
                 <img
-                  src="/images/FiscoNex-Professional.svg"
+                  src={asset("/images/FiscoNex-Professional.svg")}
                   alt={t.professional}
                   className="d-block w-75 h-75 transition-transform fn-bounce-hover"
                   style={{
@@ -136,7 +137,7 @@ export default async function Home({
                 }}
               >
                 <img
-                  src="/images/FiscoNex-Business.svg"
+                  src={asset("/images/FiscoNex-Business.svg")}
                   alt={t.business}
                   className="d-block w-75 h-75 transition-transform fn-bounce-hover"
                   style={{
@@ -159,7 +160,7 @@ export default async function Home({
               className="fn-arrow-link"
             >
               <img
-                src="/images/down.webp"
+                src={asset("/images/down.webp")}
                 alt="down arrow"
                 className="d-block fn-down-arrow"
                 style={{ width: 44, height: 44, opacity: 0.65 }}
@@ -169,7 +170,7 @@ export default async function Home({
         </div>
       </Section>
 
-      <Section id="chi-siamo" bgUrl="/images/chiSiamo.jpg">
+      <Section id="chi-siamo" bgUrl={asset("/images/chiSiamo.jpg")}>
         <Reveal>
           <h2 className="text-3xl font-semibold">{t.whoTitle}</h2>
         </Reveal>

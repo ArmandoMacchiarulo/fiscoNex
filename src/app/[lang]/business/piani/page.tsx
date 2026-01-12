@@ -2,6 +2,7 @@ import SiteHeader from "@/components/SiteHeader";
 import Reveal from "@/components/Reveal";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
+import { asset } from "@/lib/asset";
 
 export default async function PianiBusiness({
   params,
@@ -21,7 +22,7 @@ export default async function PianiBusiness({
       {/* Background FULL PAGE */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/piani.jpg')" }}
+        style={{ backgroundImage: `url(${asset("/images/piani.jpg")})` }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/25" aria-hidden="true" />

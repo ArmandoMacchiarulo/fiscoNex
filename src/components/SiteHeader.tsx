@@ -1,5 +1,7 @@
 "use client";
 
+import { asset } from "@/lib/asset";
+
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import Link from "next/link";
@@ -133,7 +135,7 @@ export default function SiteHeader({
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <Link href={base} className="flex items-center gap-2 shrink-0">
           <img
-            src="/images/FiscoNex-solo-nome.svg"
+            src={asset("/images/FiscoNex-solo-nome.svg")}
             alt={t.brand}
             className="h-8 w-auto"
           />

@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import SiteHeader from "@/components/SiteHeader";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
+import { asset } from "@/lib/asset";
 
 function getItems(lang: Lang) {
   if (lang === "en") {
@@ -67,7 +68,7 @@ export default async function ProfessionalPage({
       {/* Background FULL PAGE */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/piani.jpg')" }}
+        style={{ backgroundImage: `url(${asset("/images/piani.jpg")})` }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
@@ -75,7 +76,7 @@ export default async function ProfessionalPage({
       <div className="relative z-10 flex flex-col min-h-[100dvh]">
         <SiteHeader lang={safeLang} variant="professional" contactAnchorId="contatti" />
 
-        <main className="fn-text flex-1 overflow-y-auto fn-snap">
+        <main className="fn-text fn-main overflow-y-auto fn-snap">
           {/* SEZIONE 1: hero + metodo (100vh) */}
           <section className="fn-section fn-vcenter">
             <div

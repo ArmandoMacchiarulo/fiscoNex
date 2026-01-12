@@ -1,6 +1,7 @@
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import SiteHeader from "@/components/SiteHeader";
+import { asset } from "@/lib/asset";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 
@@ -86,19 +87,21 @@ export default async function BusinessPage({
       {/* Background FULL PAGE */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/piani.jpg')" }}
+        style={{ backgroundImage: `url(${asset("/images/piani.jpg")})` }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
 
       <div className="relative z-10 flex flex-col min-h-[100dvh]">
-        <SiteHeader lang={safeLang} variant="business" contactAnchorId="contatti" />
+        <SiteHeader
+          lang={safeLang}
+          variant="business"
+          contactAnchorId="contatti"
+        />
 
-        <main className="fn-text flex-1 overflow-y-auto fn-snap">
+        <main className="fn-text fn-main overflow-y-auto fn-snap">
           {/* SEZIONE 1: Hero + Servizi (100vh) */}
-          <section
-            className="fn-section fn-vcenter"
-          >
+          <section className="fn-section fn-vcenter">
             <div
               className="mx-auto"
               style={{
@@ -146,15 +149,12 @@ export default async function BusinessPage({
 
           {/* SEZIONE 2: Carosello (100vh) */}
           <section className="fn-section">
-            <div
-              className="fn-vcenter"
-              style={{ minHeight: "100%" }}
-            >
+            <div className="fn-vcenter" style={{ minHeight: "100%" }}>
               {/* FULL-BLEED: esce dal max-width */}
               <div
-                className="carousel-dark w-100"
+                className="carousel-dark w-100 mt-5"
                 style={{
-                  backgroundImage: "url('/images/business.jpg')",
+                  backgroundImage: `url(${asset("/images/business.jpg")})`,
                   width: "100vw",
                   marginLeft: "calc(50% - 50vw)",
                 }}
@@ -270,10 +270,7 @@ export default async function BusinessPage({
           </section>
 
           {/* SEZIONE 3: Parla con noi (100vh) */}
-          <section
-            id="contatti"
-            className="fn-section fn-vcenter"
-          >
+          <section id="contatti" className="fn-section fn-vcenter">
             <div
               className="mx-auto"
               style={{
@@ -284,7 +281,9 @@ export default async function BusinessPage({
             >
               <Reveal>
                 <div className="mt-0 rounded-3xl border bg-white backdrop-blur p-5 sm:p-8 shadow">
-                  <h2 className="text-xl sm:text-2xl font-semibold">{t.contactTitle}</h2>
+                  <h2 className="text-xl sm:text-2xl font-semibold">
+                    {t.contactTitle}
+                  </h2>
 
                   <div className="mt-4 rounded-3xl bg-white p-4 sm:p-6 text-black">
                     <ContactForm lang={safeLang} emailPlaceholder="email" />

@@ -5,6 +5,8 @@
   /* Single source of truth for body text color */
   --fn-text-rgb: 44 44 44; /* rgb values (space-separated) */
   --foreground: rgb(var(--fn-text-rgb));
+  /* Fallback header height; real value is set at runtime by SiteHeader */
+  --fn-header-h: 64px;
 }
 
 @theme inline {
@@ -34,6 +36,10 @@ body {
 */
 
 /* Apply to the scroll container (the <main> that scrolls) */
+.fn-main {
+  height: calc(100dvh - var(--fn-header-h, 0px));
+}
+
 .fn-snap {
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
