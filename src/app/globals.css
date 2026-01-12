@@ -2,7 +2,9 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  /* Single source of truth for body text color */
+  --fn-text-rgb: 44 44 44; /* rgb values (space-separated) */
+  --foreground: rgb(var(--fn-text-rgb));
 }
 
 @theme inline {
@@ -15,7 +17,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --fn-text-rgb: 40 40 40;
+    --foreground: rgb(var(--fn-text-rgb));
   }
 }
 
@@ -23,4 +26,173 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== Viewport + scroll snapping helpers (mobile-safe) =====
+   We use 100dvh to better handle mobile browser UI (address bar).
+   On short viewports we soften snapping to avoid "skipping" sections.
+*/
+
+/* Apply to the scroll container (the <main> that scrolls) */
+.fn-snap {
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding-top: 12px;
+}
+
+/* Apply to full-page sections inside the scroll container */
+.fn-section {
+  min-height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Vertical centering that becomes top-aligned on short heights */
+.fn-vcenter {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-height: 730px) {
+  .fn-snap {
+    scroll-snap-type: y proximity;
+  }
+  .fn-section {
+    scroll-snap-stop: normal;
+  }
+  .fn-vcenter {
+    align-items: flex-start;
+  }
+}
+
+/* ===== FiscoNex text helpers (based on --fn-text-rgb) ===== */
+.fn-text {
+  color: rgb(var(--fn-text-rgb)) !important;
+}
+
+.fn-text-90 {
+  color: rgb(var(--fn-text-rgb) / 0.9) !important;
+}
+
+.fn-text-85 {
+  color: rgb(var(--fn-text-rgb) / 0.85) !important;
+}
+
+.fn-text-80 {
+  color: rgb(var(--fn-text-rgb) / 0.8) !important;
+}
+
+.fn-text-70 {
+  color: rgb(var(--fn-text-rgb) / 0.7) !important;
+}
+
+/* ===== Micro-animations: reveal on scroll (respects reduced motion) ===== */
+.fn-reveal {
+  opacity: 0;
+  transform: translateY(var(--fn-reveal-y, 12px));
+  transition: opacity 600ms ease, transform 600ms ease;
+  transition-delay: var(--fn-reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.fn-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+/* ===== Micro-animations: bounce on hover ===== */
+@keyframes fn-bounce-scale {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.55);
+  }
+  75% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+/* Bounce on hover (funziona con il tuo wrapper .group) */
+.group:hover .fn-bounce-hover {
+  animation: fn-bounce-scale 380ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+  will-change: transform;
+}
+
+/* ===== Micro-animations: down arrow ===== */
+.fn-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.fn-down-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  line-height: 1;
+  color: rgb(var(--fn-text-rgb));
+  opacity: 0.55;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.fn-arrow-link:hover .fn-down-arrow {
+  opacity: 0.85;
+  transform: translateY(3px);
+}
+
+/* 🔒 No text selection by default (site-wide) */
+html,
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none; /* iOS long-press */
+  caret-color: transparent; /* evita cursore "di testo" dove non serve */
+}
+
+/* 🔒 Default: niente selezione testo */
+html,
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  caret-color: transparent;
+}
+
+/* ✅ Form: selezionabile */
+input,
+textarea,
+select,
+button,
+label,
+option,
+[contenteditable="true"],
+[role="textbox"] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+  caret-color: auto;
+}
+
+/* ✅ Classe "selectable": riabilita selezione dove vuoi tu */
+.selectable,
+.selectable * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+  caret-color: auto;
 }
