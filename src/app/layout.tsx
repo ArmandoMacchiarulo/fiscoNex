@@ -1,4 +1,5 @@
 import BootstrapClient from "@/components/BootstrapClient";
+import "@/styles/gate-backdrops.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 

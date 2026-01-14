@@ -1,0 +1,82 @@
+SVG BACKDROP — MICRO LEGENDA (viewBox 0 0 100 100)
+
+COORDINATE
+- L’SVG usa una “tela” 0..100 su X e 0..100 su Y (viewBox="0 0 100 100").
+- X cresce verso destra.
+- Y cresce verso il basso.
+- Quindi:
+  - alzare un elemento = diminuire Y
+  - abbassare = aumentare Y
+  - spostare a destra = aumentare X
+  - spostare a sinistra = diminuire X
+
+FORME (rect/circle)
+- <rect x y width height ...>
+  x,y = angolo in alto a sinistra del rettangolo.
+  width/height = dimensioni.
+  rx/ry = raggi degli angoli (più grandi = più arrotondato).
+- <circle cx cy r ...>
+  cx,cy = centro del cerchio.
+  r = raggio.
+- Opacity = trasparenza (0..1).
+
+ROTATE / TRASFORMAZIONI
+- transform="rotate(A CX CY)"
+  A = gradi di rotazione.
+  CX CY = punto attorno a cui ruota (pivot).
+  Esempio: rotate(-12 18 82) ruota -12° attorno al punto (18,82).
+
+LINEE (path d="...")
+Un path è una sequenza di comandi + coordinate.
+
+COMANDI BASE
+- M x y  (MoveTo)
+  Sposta la “penna” al punto (x,y) senza disegnare. È l’inizio.
+- L x y  (LineTo)
+  Disegna una linea retta dal punto corrente fino a (x,y).
+  Più L in sequenza = spezzata (linea “dura”).
+- C x1 y1, x2 y2, x y  (Cubic Bézier)
+  Disegna una curva con 2 punti di controllo:
+  - (x1,y1) = maniglia che “tira” l’inizio della curva
+  - (x2,y2) = maniglia che “tira” la parte finale
+  - (x,y) = punto finale della curva
+- S x2 y2, x y  (Smooth cubic Bézier)
+  Continua una curva “liscia” senza spigoli.
+  Usa automaticamente il primo punto di controllo (riflesso del precedente),
+  quindi tu specifichi solo:
+  - (x2,y2) = seconda maniglia
+  - (x,y) = punto finale
+
+COME SPOSTARE UNA LINEA
+Metodo 1 (numeri):
+- Alzare la linea: sottrai N a TUTTI i valori Y nella d="..."
+- Abbassare la linea: aggiungi N a TUTTI i valori Y
+- Destra/sinistra: aggiungi/sottrai N a TUTTI i valori X
+
+Metodo 2 (consigliato, più comodo):
+- Avvolgi il path in un gruppo e spostalo con translate:
+  <g transform="translate(dx dy)">
+    <path d="..." />
+  </g>
+  dx>0 = destra, dx<0 = sinistra
+  dy>0 = giù,   dy<0 = su
+  Esempio: translate(0,-8) alza di 8 unità senza cambiare i numeri della curva.
+
+COME MODIFICARE LA FORMA DI UNA CURVA (linea morbida)
+- Per rendere la “S” più evidente:
+  - porta più in alto i punti “alti” (Y più piccolo)
+  - porta più in basso i punti “bassi” (Y più grande)
+- I punti che cambiano la curvatura sono i CONTROL POINT:
+  - in C: (x1,y1) e (x2,y2)
+  - in S: (x2,y2) (l’altro è automatico)
+
+STILE LINEE
+- stroke = colore della linea
+- strokeWidth = spessore
+- strokeLinecap:
+  - round = estremità arrotondate (morbida)
+  - butt  = estremità nette (dura)
+- strokeLinejoin:
+  - round = giunzioni morbide
+  - miter = giunzioni spigolose (dura)
+- opacity = trasparenza (0..1)

@@ -1,0 +1,114 @@
+/* =========================================================
+   Gate Backdrops — SOLO grafica sfondi (separato dal global)
+   ========================================================= */
+
+.fn-gate {
+  --fn-gate-bg: var(--fn-p-main);
+}
+
+.fn-gate-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.fn-backdrop-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Il contenuto deve stare sopra */
+.fn-gate-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* SVG: “tela” che copre tutto */
+.fn-backdrop-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Un velo leggero sopra (uniforma senza gradientoni) */
+.fn-backdrop-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(255 255 255 / 0.1);
+}
+
+/* =========================================================
+   Backdrop Chi Siamo — 2 layer base (no opacity)
+   - cielo: deep -> mint a metà pagina (z basso)
+   - primo piano: deep dal basso -> mint a metà (z alto)
+   - spazio per molti layer intermedi
+   ========================================================= */
+
+.fn-backdrop-chisiamo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* il contenuto sta sopra grazie a .fn-gate-content z:1 */
+}
+
+/* Base layer */
+.fn-backdrop-chisiamo .fn-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* SFONDO: cielo (z basso) */
+.fn-backdrop-chisiamo .fn-layer--cielo {
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    var(--fn-p-deep) 0%,
+    var(--fn-p-main) 25%,
+    var(--fn-p-mint) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+}
+
+/* PRIMO PIANO: dal basso verso metà, poi trasparente */
+.fn-backdrop-chisiamo .fn-layer--primo-piano {
+  z-index: 90;
+  background: linear-gradient(
+    to top,
+    var(--fn-p-deep) 0%,
+    var(--fn-p-main) 15%,
+    var(--fn-p-mint) 34%,
+    var(--fn-p-sand) 36%,
+    transparent 36%,
+    transparent 100%
+  );
+}
+
+.fn-backdrop-chisiamo .fn-layer--piani-svg {
+  position: absolute;
+  inset: 0;
+  z-index: 80; /* tra cielo (10) e primo piano (90) */
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Default: mostra desktop */
+.chisiamo-mobile {
+  display: none;
+}
+.chisiamo-desktop {
+  display: block;
+}
+
+/* Mobile: mostra mobile */
+@media (max-width: 840px) {
+  .chisiamo-desktop {
+    display: none;
+  }
+  .chisiamo-mobile {
+    display: block;
+  }
+}

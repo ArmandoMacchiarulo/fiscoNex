@@ -1,40 +1,13 @@
 import Reveal from "@/components/Reveal";
+import GateSection from "@/components/gate/GateSection";
 import { asset } from "@/lib/asset";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 import Link from "next/link";
 
-function Section({
-  bgUrl,
-  children,
-  id,
-}: {
-  bgUrl: string;
-  children: React.ReactNode;
-  id?: string;
-}) {
-  return (
-    <section
-      id={id}
-      className="min-h-[100dvh] w-full snap-start relative overflow-hidden flex items-center justify-center"
-      style={{
-        backgroundImage: `url(${bgUrl})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl px-6 text-center fn-text">
-        {children}
-      </div>
-    </section>
-  );
-}
-
 export default async function Home({
   params,
 }: {
-  // Next.js (sync-dynamic-apis): in some versions `params` is a Promise
   params: Promise<{ lang?: Lang }>;
 }) {
   const { lang: rawLang } = await params;
@@ -43,20 +16,24 @@ export default async function Home({
   const otherLang: Lang = lang === "en" ? "it" : "en";
 
   return (
-    <main className="h-[100dvh] w-full overflow-y-auto snap-y snap-mandatory fn-snap">
+    <main
+      data-brand="gate"
+      className="fn-gate h-[100dvh] w-full overflow-y-auto snap-y snap-mandatory fn-snap"
+    >
       <Link
         href={`/${otherLang}`}
-        className="me-2 fixed right-4 top-4 z-50 rounded-full border border-white/25 bg-black/30 px-3 py-2 text-xs font-semibold uppercase tracking-wider fn-text backdrop-blur transition hover:bg-black/45"
+        className="me-2 fixed right-4 top-4 z-50 rounded-full border border-black/15 bg-white/40 px-3 py-2 text-xs font-semibold uppercase tracking-wider fn-text backdrop-blur transition hover:bg-white/65"
         aria-label={lang === "en" ? "Passa a Italiano" : "Switch to English"}
       >
         {otherLang}
       </Link>
-      <Section bgUrl={asset("/images/mission.jpg")}>
+
+      {/* STEP 1: Intro senza immagine, con backdrop CSS */}
+      <GateSection section="intro">
         <div
           className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
           style={{ minHeight: "100dvh" }}
         >
-          {/* Logo e testo: dimensioni come la 1 */}
           <Reveal>
             <div className="mx-auto w-full max-w-xl">
               <img
@@ -73,7 +50,6 @@ export default async function Home({
             </p>
           </Reveal>
 
-          {/* Freccia: bottom fisso dentro la section */}
           <div
             className="position-absolute bottom-0 start-50 translate-middle-x pb-4"
             style={{ zIndex: 50 }}
@@ -92,9 +68,9 @@ export default async function Home({
             </Link>
           </div>
         </div>
-      </Section>
+      </GateSection>
 
-      <Section id="section-2" bgUrl={asset("/images/scelta.jpg")}>
+      <GateSection id="section-2" section="choice" bgImage="/images/scelta.jpg">
         <div
           className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
           style={{ minHeight: "100dvh" }}
@@ -168,16 +144,16 @@ export default async function Home({
             </Link>
           </div>
         </div>
-      </Section>
+      </GateSection>
 
-      <Section id="chi-siamo" bgUrl={asset("/images/chiSiamo.jpg")}>
+      <GateSection id="chi-siamo" section="about">
         <Reveal>
           <h2 className="text-3xl font-semibold">{t.whoTitle}</h2>
         </Reveal>
         <Reveal delayMs={80}>
           <p className="mt-6 text-lg leading-relaxed fn-text-90">{t.whoBody}</p>
         </Reveal>
-      </Section>
+      </GateSection>
     </main>
   );
 }
