@@ -18,7 +18,7 @@ export default function BackdropSceltaBase() {
           rx="18"
           ry="18"
           fill="var(--fn-p-sand)"
-          opacity="0.92"
+          opacity="0.95"
           transform="rotate(-10 20 86)"
         />
 
@@ -31,7 +31,7 @@ export default function BackdropSceltaBase() {
           rx="16"
           ry="16"
           fill="var(--fn-p-mint)"
-          opacity="0.36"
+          opacity="0.95"
           transform="rotate(14 86 6)"
         />
 
@@ -42,18 +42,18 @@ export default function BackdropSceltaBase() {
           stroke="var(--fn-p-deep)"
           strokeWidth="2.6"
           strokeLinecap="round"
-          opacity="0.35"
+          opacity="0.9"
         />
 
         {/* linea dura */}
         <path
           d="M -10 72 L 36 60 L 66 68 L 112 52"
           fill="none"
-          stroke="var(--fn-p-mint)"
+          stroke="var(--fn-p-red)"
           strokeWidth="3.2"
           strokeLinecap="butt"
           strokeLinejoin="miter"
-          opacity="0.45"
+          opacity="0.9"
         />
       </svg>
     </div>

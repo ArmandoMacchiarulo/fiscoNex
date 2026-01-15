@@ -25,7 +25,7 @@ export default function BackdropIntro() {
           rx="18"
           ry="18"
           fill="var(--fn-p-peach)"
-          opacity="0.70"
+          opacity="0.95"
           transform="rotate(-12 18 82)"
         />
 
@@ -49,7 +49,7 @@ export default function BackdropIntro() {
           stroke="var(--fn-p-mint)"
           strokeWidth="3.2"
           strokeLinecap="round"
-          opacity="0.52"
+          opacity="0.8"
         />
 
         {/* LINEA 2: dura “a Z” (profondo) */}
@@ -60,7 +60,7 @@ export default function BackdropIntro() {
           strokeWidth="3"
           strokeLinecap="butt"
           strokeLinejoin="miter"
-          opacity="0.6"
+          opacity="0.8"
         />
       </svg>
     </div>

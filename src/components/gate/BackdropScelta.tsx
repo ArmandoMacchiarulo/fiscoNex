@@ -41,14 +41,14 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
       <path
         d="M -10 8 C 22 18, 34 0, 58 12 S 92 34, 112 18 L 112 -10 L -10 -10 Z"
         fill="var(--fn-choice-deep)"
-        opacity="0.85"
+        opacity="0.9"
       />
 
       {/* mint soft blob */}
       <path
         d="M -8 58 C 10 40, 36 46, 52 58 C 66 68, 88 66, 112 50 L 112 112 L -8 112 Z"
         fill="var(--fn-choice-mint)"
-        opacity="0.42"
+        opacity="0.8"
       />
 
       {/* shared sand geometry */}
@@ -60,7 +60,7 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
         rx="18"
         ry="18"
         fill="var(--fn-choice-sand)"
-        opacity="0.88"
+        opacity="0.9"
         transform="rotate(-12 16 88)"
       />
 
@@ -73,7 +73,7 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
         rx="16"
         ry="16"
         fill="var(--fn-choice-peach)"
-        opacity="0.72"
+        opacity="0.9"
         transform="rotate(12 88 6)"
       />
 
@@ -81,14 +81,14 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
       <path
         d="M -10 38 L 20 44 L 36 58 L 56 80 L 112 112 L -10 112 Z"
         fill="var(--fn-choice-red)"
-        opacity="0.55"
+        opacity="0.7"
       />
 
       {/* darkred tiny accent (business => sand) */}
       <path
         d="M 18 50 L 28 54 L 36 66 L 46 74 L 60 86 L 44 90 L 18 62 Z"
         fill="var(--fn-choice-darkred)"
-        opacity={variant === "pro" ? 0.28 : 0.16}
+        opacity={variant === "pro" ? 0.7 : 0.6}
       />
 
       {/* line: diagonal echo */}
@@ -97,7 +97,7 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
         fill="none"
         stroke="var(--fn-choice-deep)"
         strokeWidth="2.2"
-        opacity="0.38"
+        opacity="0.8"
       />
     </svg>
   );
