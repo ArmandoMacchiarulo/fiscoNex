@@ -24,8 +24,8 @@ export default function BackdropIntro() {
           height="62"
           rx="18"
           ry="18"
-          fill="var(--fn-p-sand)"
-          opacity="0.90"
+          fill="var(--fn-p-peach)"
+          opacity="0.70"
           transform="rotate(-12 18 82)"
         />
 
@@ -37,8 +37,8 @@ export default function BackdropIntro() {
           height="52"
           rx="16"
           ry="16"
-          fill="var(--fn-p-peach)"
-          opacity="0.78"
+          fill="var(--fn-p-sand)"
+          opacity="0.95"
           transform="rotate(14 88 8)"
         />
 

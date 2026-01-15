@@ -1,20 +1,24 @@
 @import "tailwindcss";
 
 /* =========================================================
-   FiscoNex — Global styles + design tokens (NO backdrops)
+   FiscoNex — Global styles + design tokens
+   (NO backdrops: qui solo token + UI globale)
    ========================================================= */
 
+/* -------------------------
+   Design tokens
+   ------------------------- */
 :root {
   --background: #ffffff;
 
-  /* Testo: come hai scelto tu (uguale al logo) */
+  /* Testo (uguale al logo) */
   --fn-text-rgb: 44 44 44;
   --foreground: rgb(var(--fn-text-rgb));
 
+  /* Header */
   --fn-header-h: 64px;
 
   /* Palette (cugino) */
-  --fn-p-white: #ffffff; /* sfondo chiaro */
   --fn-p-main: #468d8b; /* main da sfondo */
   --fn-p-deep: #213843; /* secondo */
   --fn-p-mint: #74b3a8; /* terzo */
@@ -27,7 +31,8 @@
   --fn-gate-bg: var(--fn-p-main);
 }
 
-/* Tailwind v4 directive (warning “Unknown at rule @theme” nei devtools è ok) */
+/* Tailwind v4 directive
+   (warning “Unknown at rule @theme” nei devtools è ok in dev) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -35,6 +40,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* -------------------------
+   Base layout
+   ------------------------- */
 html,
 body {
   height: 100%;
@@ -46,7 +54,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Helpers testo */
+/* -------------------------
+   Text helpers
+   ------------------------- */
 .fn-text {
   color: rgb(var(--fn-text-rgb)) !important;
 }
@@ -57,7 +67,9 @@ body {
   color: rgb(var(--fn-text-rgb) / 0.8) !important;
 }
 
-/* Scroll snapping helpers */
+/* -------------------------
+   Scroll snapping helpers
+   ------------------------- */
 .fn-snap {
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
@@ -78,22 +90,29 @@ body {
   }
 }
 
-/* Arrow */
+/* -------------------------
+   Arrow / scroll hint
+   ------------------------- */
 .fn-arrow-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
 }
+
 .fn-down-arrow {
   transition: transform 180ms ease, opacity 180ms ease;
 }
+
 .fn-arrow-link:hover .fn-down-arrow {
   opacity: 0.85 !important;
   transform: translateY(3px);
 }
 
-/* Selection policy (se vuoi mantenerla) */
+/* -------------------------
+   Selection policy
+   (default: no selection, except form fields / .selectable)
+   ------------------------- */
 html,
 body {
   -webkit-user-select: none;
@@ -123,4 +142,198 @@ option,
   -moz-user-select: text;
   user-select: text;
   caret-color: auto;
+}
+
+/* =========================================================
+   Choice buttons (sezione 2 cancello)
+   - visibili solo con data-choice-stage="buttons"
+   - hit-area stabile (non si scala il Link)
+   - animazioni sul wrapper interno .fn-choice-visual
+   - hover: 100 -> 170 -> 150 (e resta a 150 finché hover)
+   - uscita: torna pulito a 100 (senza bounce inverso)
+   ========================================================= */
+
+/* Wrapper bottoni */
+.fn-choice-buttons {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-buttons {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ---------------------------------------------------------
+   Card (Link) = HIT AREA STABILE (NON si scala)
+   --------------------------------------------------------- */
+.fn-choice-card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+
+  /* inizialmente invisibile (entra con fade) */
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+/* attivo nello stage buttons */
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
+  opacity: 1;
+}
+
+/* Focus ring */
+.fn-choice-card:focus-visible {
+  outline: 2px solid rgb(var(--fn-text-rgb) / 0.35);
+  outline-offset: 6px;
+  border-radius: 24px;
+}
+
+/* ---------------------------------------------------------
+   Visual wrapper = quello che si muove e scala
+   (così l’hover stacca subito e non “ingrassa” il container)
+   --------------------------------------------------------- */
+.fn-choice-visual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* IMPORTANT: non cattura hover, lo cattura il Link */
+  pointer-events: none;
+
+  /* scale & bounce settings */
+  --fn-choice-enter-from: 0.92; /* piccolo ingresso */
+  --fn-choice-enter-overshoot: 1.06;
+  --fn-choice-hover-peak: 1.7; /* 170% */
+  --fn-choice-hover-hold: 1.5; /* 150% */
+
+  will-change: transform, opacity;
+  transform: translateX(0px) scale(var(--fn-choice-enter-from));
+  opacity: 0;
+}
+
+/* Entrata: pro da sx, bus da dx (solo visual) */
+.fn-choice-card--pro .fn-choice-visual {
+  transform: translateX(-18px) scale(var(--fn-choice-enter-from));
+}
+
+.fn-choice-card--bus .fn-choice-visual {
+  transform: translateX(18px) scale(var(--fn-choice-enter-from));
+}
+
+/* Quando arriviamo allo stage "buttons" faccio partire l’entrata del VISUAL */
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-visual {
+  opacity: 1;
+  animation: fn-choice-visual-enter 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* piccolo stagger tra i due */
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-card--pro
+  .fn-choice-visual {
+  animation-delay: 0ms;
+}
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-card--bus
+  .fn-choice-visual {
+  animation-delay: 90ms;
+}
+
+/* Keyframes entrata: si centra e si assesta a 100% */
+@keyframes fn-choice-visual-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--fn-choice-x, 0px))
+      scale(var(--fn-choice-enter-from));
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0px) scale(var(--fn-choice-enter-overshoot));
+  }
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+/* Setto la variabile per la direzione iniziale */
+.fn-choice-card--pro .fn-choice-visual {
+  --fn-choice-x: -18px;
+}
+.fn-choice-card--bus .fn-choice-visual {
+  --fn-choice-x: 18px;
+}
+
+/* ---------------------------------------------------------
+   Hover bounce: 100 -> 170 -> 150
+   - applicato al VISUAL
+   - e quando esci torna a 1 con una transition pulita
+   --------------------------------------------------------- */
+
+/* Stato normale post-enter */
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-visual {
+  /* quando non animiamo, permettiamo un rientro pulito */
+  transition: transform 180ms ease;
+}
+
+/* Su hover/focus: anima e poi resta a 150 finché hover */
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-card:hover
+  .fn-choice-visual,
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-card:focus-visible
+  .fn-choice-visual {
+  transition: none; /* evita “mix” con transition */
+  animation: fn-choice-hover-bounce 360ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fn-choice-hover-bounce {
+  0% {
+    transform: translateX(0px) scale(1);
+  }
+  65% {
+    transform: translateX(0px) scale(var(--fn-choice-hover-peak));
+  }
+  100% {
+    transform: translateX(0px) scale(var(--fn-choice-hover-hold));
+  }
+}
+
+/* Quando esci hover: torna a 1 SENZA bounce inverso */
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-card:not(:hover):not(:focus-visible)
+  .fn-choice-visual {
+  animation: none;
+  transform: translateX(0px) scale(1);
+}
+
+/* ---------------------------------------------------------
+   Riduzione movimento (accessibilità)
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .fn-choice-buttons,
+  .fn-choice-card,
+  .fn-choice-visual {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  section[data-section="choice"][data-choice-stage="buttons"]
+    .fn-choice-buttons {
+    opacity: 1;
+    transform: none;
+  }
+
+  section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
+    opacity: 1;
+  }
+
+  section[data-section="choice"][data-choice-stage="buttons"]
+    .fn-choice-visual {
+    opacity: 1;
+    transform: none;
+  }
 }

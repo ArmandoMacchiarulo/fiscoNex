@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import ChoiceStageController from "@/components/gate/ChoiceStageController";
 import GateSection from "@/components/gate/GateSection";
 import { asset } from "@/lib/asset";
 import type { Lang } from "@/lib/i18n";
@@ -70,79 +71,59 @@ export default async function Home({
         </div>
       </GateSection>
 
-      <GateSection id="section-2" section="choice" bgImage="/images/scelta.jpg">
+      <GateSection id="section-2" section="choice">
         <div
           className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
           style={{ minHeight: "100dvh" }}
         >
-          <Reveal>
-            <h1 className="text-3xl font-semibold">{t.chooseTitle}</h1>
-          </Reveal>
+          {/* Orchestrazione: base -> backdrop (0.5s) -> pulsanti (1.5s) */}
+          <ChoiceStageController />
 
-          <Reveal delayMs={80}>
-            <div className="mt-10 d-flex flex-column gap-4 flex-sm-row justify-content-sm-center">
-              <Link
-                href={`/${lang}/professional`}
-                className="group d-flex align-items-center justify-content-center px-0 py-0 backdrop-blur hover:bg-white/20 transition"
-                style={{
-                  textDecoration: "none",
-                  width: "320px",
-                  height: "200px",
-                  borderRadius: "24px",
-                }}
-              >
+          <h1 className="text-3xl font-semibold">{t.chooseTitle}</h1>
+
+          <div className="fn-choice-buttons mt-10 d-flex flex-column gap-4 flex-sm-row justify-content-sm-center">
+            <Link
+              href={`/${lang}/professional`}
+              className="fn-choice-card fn-choice-card--pro group d-flex align-items-center justify-content-center px-0 py-0"
+              style={{
+                textDecoration: "none",
+                width: "320px",
+                height: "200px",
+                borderRadius: "24px",
+              }}
+            >
+              <span className="fn-choice-visual">
                 <img
                   src={asset("/images/FiscoNex-Professional.svg")}
                   alt={t.professional}
-                  className="d-block w-75 h-75 transition-transform fn-bounce-hover"
-                  style={{
-                    objectFit: "contain",
-                    padding: "24px",
-                  }}
+                  className="d-block w-100 h-100 transition-transform fn-bounce-hover"
+                  style={{ objectFit: "contain", padding: "24px" }}
                 />
-              </Link>
+              </span>
+            </Link>
 
-              <Link
-                href={`/${lang}/business`}
-                className="group d-flex align-items-center justify-content-center px-0 py-0 backdrop-blur hover:bg-white/20 transition"
-                style={{
-                  textDecoration: "none",
-                  width: "320px",
-                  height: "200px",
-                  borderRadius: "24px",
-                }}
-              >
+            <Link
+              href={`/${lang}/business`}
+              className="fn-choice-card fn-choice-card--bus group d-flex align-items-center justify-content-center px-0 py-0"
+              style={{
+                textDecoration: "none",
+                width: "320px",
+                height: "200px",
+                borderRadius: "24px",
+              }}
+            >
+              <span className="fn-choice-visual">
                 <img
                   src={asset("/images/FiscoNex-Business.svg")}
                   alt={t.business}
-                  className="d-block w-75 h-75 transition-transform fn-bounce-hover"
-                  style={{
-                    objectFit: "contain",
-                    padding: "24px",
-                  }}
+                  className="d-block w-100 h-100 transition-transform fn-bounce-hover"
+                  style={{ objectFit: "contain", padding: "24px" }}
                 />
-              </Link>
-            </div>
-          </Reveal>
-
-          {/* Freccia bottom fissa */}
-          <div
-            className="position-absolute bottom-0 start-50 translate-middle-x pb-4"
-            style={{ zIndex: 50 }}
-          >
-            <Link
-              href={`/${lang}#chi-siamo`}
-              aria-label="Scroll to next section"
-              className="fn-arrow-link"
-            >
-              <img
-                src={asset("/images/down.webp")}
-                alt="down arrow"
-                className="d-block fn-down-arrow"
-                style={{ width: 44, height: 44, opacity: 0.65 }}
-              />
+              </span>
             </Link>
           </div>
+
+          {/* Freccia bottom ... (come già hai) */}
         </div>
       </GateSection>
 

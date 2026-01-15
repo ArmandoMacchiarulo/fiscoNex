@@ -77,11 +77,11 @@
   z-index: 90;
   background: linear-gradient(
     to top,
-    var(--fn-p-deep) 0%,
-    var(--fn-p-main) 15%,
+    var(--fn-p-deep) 5%,
+    var(--fn-p-main) 30%,
     var(--fn-p-mint) 34%,
-    var(--fn-p-sand) 36%,
-    transparent 36%,
+    var(--fn-p-sand) 35%,
+    transparent 35%,
     transparent 100%
   );
 }
@@ -111,4 +111,128 @@
   .chisiamo-mobile {
     display: block;
   }
+}
+
+/* opzionale: layer senza velo (utile per overlay) */
+.fn-backdrop-layer.fn-no-veil::after {
+  display: none;
+}
+
+/* =========================================================
+   Backdrop Scelta — 2 pannelli che si uniscono su diagonale
+   Timeline (gestita da ChoiceStageController):
+   - base immediata
+   - 0.5s: avvio animazione 1s
+   - 1.5s: compaiono pulsanti (0.5s)
+   ========================================================= */
+
+.fn-choice-base {
+  z-index: 0;
+}
+
+.fn-choice-overlay {
+  z-index: 0;
+}
+
+.fn-choice-panel {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: clip-path, opacity;
+}
+
+/* Stato iniziale: clip degenerato (quasi invisibile) */
+.fn-choice-panel--pro {
+  clip-path: polygon(0% 0%, 0.5% 0%, 0% 0.5%);
+}
+.fn-choice-panel--bus {
+  clip-path: polygon(100% 100%, 99.5% 100%, 100% 99.5%);
+}
+
+/* Quando parte la transizione backdrop */
+section[data-section="choice"][data-choice-stage="backdrop"] .fn-choice-panel,
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-panel {
+  opacity: 1;
+}
+
+section[data-section="choice"][data-choice-stage="backdrop"]
+  .fn-choice-panel--pro {
+  animation: fn-choice-pro 1000ms cubic-bezier(0.22, 0.85, 0.2, 1) forwards;
+}
+
+section[data-section="choice"][data-choice-stage="backdrop"]
+  .fn-choice-panel--bus {
+  animation: fn-choice-bus 1000ms cubic-bezier(0.22, 0.85, 0.2, 1) forwards;
+}
+
+/* quando siamo in "buttons" mantieni lo stato finale */
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-panel--pro {
+  clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+  opacity: 1;
+}
+section[data-section="choice"][data-choice-stage="buttons"]
+  .fn-choice-panel--bus {
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+  opacity: 1;
+}
+
+@keyframes fn-choice-pro {
+  0% {
+    clip-path: polygon(0% 0%, 0.5% 0%, 0% 0.5%);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+  }
+}
+
+@keyframes fn-choice-bus {
+  0% {
+    clip-path: polygon(100% 100%, 99.5% 100%, 100% 99.5%);
+  }
+  100% {
+    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+  }
+}
+
+/* =========================================================
+   Pulsanti scelta — entrano dopo backdrop
+   ========================================================= */
+
+.fn-choice-buttons {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-buttons {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.fn-choice-card {
+  opacity: 0;
+  transition: opacity 500ms ease, transform 500ms ease,
+    background-color 200ms ease;
+  will-change: transform, opacity;
+}
+
+.fn-choice-card--pro {
+  transform: translateX(-28px);
+}
+.fn-choice-card--bus {
+  transform: translateX(28px);
+}
+
+section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fn-choice-marker {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }

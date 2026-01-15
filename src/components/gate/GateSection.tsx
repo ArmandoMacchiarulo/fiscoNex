@@ -1,6 +1,8 @@
 import { asset } from "@/lib/asset";
 import BackdropChiSiamo from "./BackdropChiSiamo";
 import BackdropIntro from "./BackdropIntro";
+import BackdropScelta from "./BackdropScelta";
+import BackdropSceltaBase from "./BackdropSceltaBase";
 
 export default function GateSection({
   id,
@@ -30,11 +32,15 @@ export default function GateSection({
           : undefined
       }
     >
-      {/* Backdrop solo per Intro (Step 1) */}
       {!useImage && section === "intro" ? <BackdropIntro /> : null}
+      {!useImage && section === "choice" ? (
+        <>
+          <BackdropSceltaBase />
+          <BackdropScelta />
+        </>
+      ) : null}
       {!useImage && section === "about" ? <BackdropChiSiamo /> : null}
 
-      {/* overlay legacy quando c’è immagine */}
       {useImage ? (
         <div className="absolute inset-0 bg-black/25" aria-hidden="true" />
       ) : null}
