@@ -1,16 +1,16 @@
 /* =========================================================
-   Gate Backdrops — SOLO grafica sfondi (separato dal global)
+   Gate Backdrops — SOLO grafica sfondi + layering
+   (NO token, NO bottoni choice: quelli stanno in globals.css)
    ========================================================= */
 
-.fn-gate {
-  --fn-gate-bg: var(--fn-p-main);
-}
-
+/* Section wrapper: stacking context pulito */
 .fn-gate-section {
   position: relative;
   overflow: hidden;
+  isolation: isolate; /* evita edge-case di stacking/clip-path */
 }
 
+/* Backdrop layer: sempre dietro al contenuto */
 .fn-backdrop-layer {
   position: absolute;
   inset: 0;
@@ -21,7 +21,7 @@
 /* Il contenuto deve stare sopra */
 .fn-gate-content {
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* SVG: “tela” che copre tutto */
@@ -31,7 +31,7 @@
   display: block;
 }
 
-/* Un velo leggero sopra (uniforma senza gradientoni) */
+/* Velo leggero sopra i backdrops (uniforma). Disattivabile con .fn-no-veil */
 .fn-backdrop-layer::after {
   content: "";
   position: absolute;
@@ -39,91 +39,16 @@
   background: rgb(255 255 255 / 0.1);
 }
 
-/* =========================================================
-   Backdrop Chi Siamo — 2 layer base (no opacity)
-   - cielo: deep -> mint a metà pagina (z basso)
-   - primo piano: deep dal basso -> mint a metà (z alto)
-   - spazio per molti layer intermedi
-   ========================================================= */
-
-.fn-backdrop-chisiamo {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0; /* il contenuto sta sopra grazie a .fn-gate-content z:1 */
-}
-
-/* Base layer */
-.fn-backdrop-chisiamo .fn-layer {
-  position: absolute;
-  inset: 0;
-}
-
-/* SFONDO: cielo (z basso) */
-.fn-backdrop-chisiamo .fn-layer--cielo {
-  z-index: 10;
-  background: linear-gradient(
-    to bottom,
-    var(--fn-p-deep) 0%,
-    var(--fn-p-main) 25%,
-    var(--fn-p-mint) 50%,
-    transparent 50%,
-    transparent 100%
-  );
-}
-
-/* PRIMO PIANO: dal basso verso metà, poi trasparente */
-.fn-backdrop-chisiamo .fn-layer--primo-piano {
-  z-index: 90;
-  background: linear-gradient(
-    to top,
-    var(--fn-p-deep) 5%,
-    var(--fn-p-main) 30%,
-    var(--fn-p-mint) 34%,
-    var(--fn-p-sand) 35%,
-    transparent 35%,
-    transparent 100%
-  );
-}
-
-.fn-backdrop-chisiamo .fn-layer--piani-svg {
-  position: absolute;
-  inset: 0;
-  z-index: 80; /* tra cielo (10) e primo piano (90) */
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Default: mostra desktop */
-.chisiamo-mobile {
-  display: none;
-}
-.chisiamo-desktop {
-  display: block;
-}
-
-/* Mobile: mostra mobile */
-@media (max-width: 840px) {
-  .chisiamo-desktop {
-    display: none;
-  }
-  .chisiamo-mobile {
-    display: block;
-  }
-}
-
-/* opzionale: layer senza velo (utile per overlay) */
 .fn-backdrop-layer.fn-no-veil::after {
   display: none;
 }
 
 /* =========================================================
    Backdrop Scelta — 2 pannelli che si uniscono su diagonale
-   Timeline (gestita da ChoiceStageController):
+   Timeline (ChoiceStageController):
    - base immediata
-   - 0.5s: avvio animazione 1s
-   - 1.5s: compaiono pulsanti (0.5s)
+   - stage "backdrop": animazione clip-path 1s
+   - stage "buttons": mantiene finale + bottoni visibili (globals.css)
    ========================================================= */
 
 .fn-choice-base {
@@ -168,12 +93,12 @@ section[data-section="choice"][data-choice-stage="backdrop"]
 /* quando siamo in "buttons" mantieni lo stato finale */
 section[data-section="choice"][data-choice-stage="buttons"]
   .fn-choice-panel--pro {
-  clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+  clip-path: polygon(0% 0%, 101% 0%, 0% 101%);
   opacity: 1;
 }
 section[data-section="choice"][data-choice-stage="buttons"]
   .fn-choice-panel--bus {
-  clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(101% 0%, 101% 101%, 0% 101%);
   opacity: 1;
 }
 
@@ -182,7 +107,8 @@ section[data-section="choice"][data-choice-stage="buttons"]
     clip-path: polygon(0% 0%, 0.5% 0%, 0% 0.5%);
   }
   100% {
-    clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+    /* 101% per evitare hairline gap (Firefox/iOS) */
+    clip-path: polygon(0% 0%, 101% 0%, 0% 101%);
   }
 }
 
@@ -191,48 +117,13 @@ section[data-section="choice"][data-choice-stage="buttons"]
     clip-path: polygon(100% 100%, 99.5% 100%, 100% 99.5%);
   }
   100% {
-    clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+    /* 101% per evitare hairline gap (Firefox/iOS) */
+    clip-path: polygon(101% 0%, 101% 101%, 0% 101%);
   }
 }
 
 /* =========================================================
-   Pulsanti scelta — entrano dopo backdrop
+   NOTE:
+   - Stili dei pulsanti scelta (.fn-choice-*) stanno in globals.css
+   - Token/variabili stanno in fn.tokens.css / fn.variants.css / globals.css
    ========================================================= */
-
-.fn-choice-buttons {
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-
-section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-buttons {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.fn-choice-card {
-  opacity: 0;
-  transition: opacity 500ms ease, transform 500ms ease,
-    background-color 200ms ease;
-  will-change: transform, opacity;
-}
-
-.fn-choice-card--pro {
-  transform: translateX(-28px);
-}
-.fn-choice-card--bus {
-  transform: translateX(28px);
-}
-
-section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fn-choice-marker {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}

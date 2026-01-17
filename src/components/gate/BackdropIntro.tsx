@@ -1,66 +1,93 @@
 export default function BackdropIntro() {
   return (
     <div className="fn-backdrop-layer" aria-hidden="true">
-      {/* sfondo pieno */}
       <svg
         className="fn-backdrop-svg"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid slice"
       >
-        {/* BACKGROUND */}
-        <rect x="0" y="0" width="100" height="100" fill="var(--fn-gate-bg)" />
+        {/* ============================
+            INTRO — Gate
+            - NO background rect (bg è sul main)
+            - Forme piccole/medie + linee sottili
+            - Opacity 0.8–0.9
+           ============================ */}
 
-        {/* =========================================
-            SOLO 2 FORME (morbide) + 2 LINEE
-            - NIENTE rosso in intro
-            - tutto parametrizzabile modificando i numeri
-           ========================================= */}
-
-        {/* FORMA 1: quadrato arrotondato “sabbia” (in basso a sinistra) */}
+        {/* --- PRIMARY (business) #93B2BE ~35% --- */}
         <rect
-          x="-12"
-          y="60"
-          width="62"
-          height="62"
-          rx="18"
-          ry="18"
-          fill="var(--fn-p-peach)"
-          opacity="0.95"
-          transform="rotate(-12 18 82)"
+          x="-6"
+          y="66"
+          width="36"
+          height="36"
+          rx="12"
+          ry="12"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-10 12 84)"
+        />
+        <rect
+          x="6"
+          y="-10"
+          width="30"
+          height="30"
+          rx="10"
+          ry="10"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(8 21 5)"
         />
 
-        {/* FORMA 2: quadrato arrotondato “pesca” (in alto a destra) */}
+        {/* --- PRIMARY (professional) #DBD3D8 ~35% --- */}
         <rect
-          x="62"
-          y="-18"
-          width="52"
-          height="52"
-          rx="16"
-          ry="16"
-          fill="var(--fn-p-sand)"
-          opacity="0.95"
-          transform="rotate(14 88 8)"
+          x="70"
+          y="6"
+          width="30"
+          height="30"
+          rx="12"
+          ry="12"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-6 85 21)"
+        />
+        <rect
+          x="68"
+          y="64"
+          width="34"
+          height="34"
+          rx="14"
+          ry="14"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(10 85 81)"
         />
 
-        {/* LINEA 1: morbida a S (menta) */}
+        {/* --- ACCENT BLUE #16425B ~15% (linee sottili) --- */}
         <path
-          d="M -10 32 C 12 18, 26 46, 48 32 S 78 28, 110 40"
+          d="M -5 44 C 12 30, 28 58, 46 44 S 72 34, 105 48"
           fill="none"
-          stroke="var(--fn-p-mint)"
-          strokeWidth="3.2"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.6"
           strokeLinecap="round"
-          opacity="0.8"
+          opacity="var(--fn-shape-opacity)"
+        />
+        <path
+          d="M 8 86 L 34 74 L 58 82"
+          fill="none"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="var(--fn-shape-opacity)"
         />
 
-        {/* LINEA 2: dura “a Z” (profondo) */}
+        {/* --- ACCENT ORANGE #DA6D58 ~15% (linee sottili) --- */}
         <path
-          d="M -10 69.5 L 44 58 L 74 66 L 110 52"
+          d="M 38 -6 C 46 10, 44 18, 54 30 S 78 44, 102 36"
           fill="none"
-          stroke="var(--fn-p-deep)"
-          strokeWidth="3"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          opacity="0.8"
+          stroke="var(--fn-c-accent-red)"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          opacity="var(--fn-shape-opacity)"
         />
       </svg>
     </div>

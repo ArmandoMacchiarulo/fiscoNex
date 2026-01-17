@@ -6,24 +6,18 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
   const vars: CSSVars =
     variant === "pro"
       ? {
-          // Professional: palette completa
-          "--fn-choice-main": "#468d8b",
-          "--fn-choice-deep": "#213843",
-          "--fn-choice-mint": "#74b3a8",
-          "--fn-choice-sand": "#f6dac0",
-          "--fn-choice-peach": "#feaf76",
-          "--fn-choice-red": "#da6d58",
-          "--fn-choice-darkred": "#7d3533",
+          "--fn-panel-bg": "var(--fn-c-primary-pro)",
+          "--fn-panel-shape": "var(--fn-c-primary-bus)",
+          "--fn-panel-accent": "var(--fn-c-accent-red)",
+          "--fn-panel-accent-2": "var(--fn-c-accent-blue)",
+          "--fn-panel-opacity": 0.92, // pannello semi-trasparente
         }
       : {
-          // Business: meno colori — mappo gli extra (peach/red/darkred) su sand
-          "--fn-choice-main": "#468d8b",
-          "--fn-choice-deep": "#213843",
-          "--fn-choice-mint": "#74b3a8",
-          "--fn-choice-sand": "#f6dac0",
-          "--fn-choice-peach": "#f6dac0",
-          "--fn-choice-red": "#f6dac0",
-          "--fn-choice-darkred": "#f6dac0",
+          "--fn-panel-bg": "var(--fn-c-primary-bus)",
+          "--fn-panel-shape": "var(--fn-c-primary-pro)",
+          "--fn-panel-accent": "var(--fn-c-accent-blue)",
+          "--fn-panel-accent-2": "var(--fn-c-accent-red)",
+          "--fn-panel-opacity": 0.92,
         };
 
   return (
@@ -34,70 +28,67 @@ function SceltaSvg({ variant }: { variant: "pro" | "bus" }) {
       style={vars}
       aria-hidden="true"
     >
-      {/* background */}
-      <rect x="0" y="0" width="100" height="100" fill="var(--fn-choice-main)" />
-
-      {/* deep band */}
-      <path
-        d="M -10 8 C 22 18, 34 0, 58 12 S 92 34, 112 18 L 112 -10 L -10 -10 Z"
-        fill="var(--fn-choice-deep)"
-        opacity="0.9"
+      {/* Panel background (serve per vedere la diagonale), semi-trasparente */}
+      <rect
+        x="0"
+        y="0"
+        width="100"
+        height="100"
+        fill="var(--fn-panel-bg)"
+        opacity="var(--fn-panel-opacity)"
       />
 
-      {/* mint soft blob */}
-      <path
-        d="M -8 58 C 10 40, 36 46, 52 58 C 66 68, 88 66, 112 50 L 112 112 L -8 112 Z"
-        fill="var(--fn-choice-mint)"
-        opacity="0.8"
-      />
-
-      {/* shared sand geometry */}
+      {/* forme piccole/medie */}
       <rect
         x="-10"
-        y="62"
-        width="62"
-        height="50"
-        rx="18"
-        ry="18"
-        fill="var(--fn-choice-sand)"
-        opacity="0.9"
-        transform="rotate(-12 16 88)"
+        y="64"
+        width="44"
+        height="34"
+        rx="14"
+        ry="14"
+        fill="var(--fn-panel-shape)"
+        opacity="var(--fn-shape-opacity)"
+        transform="rotate(-10 12 82)"
       />
-
-      {/* peach geometry (in business diventa sand) */}
       <rect
-        x="60"
-        y="-20"
-        width="54"
-        height="54"
-        rx="16"
-        ry="16"
-        fill="var(--fn-choice-peach)"
-        opacity="0.9"
-        transform="rotate(12 88 6)"
+        x="64"
+        y="-12"
+        width="40"
+        height="36"
+        rx="14"
+        ry="14"
+        fill="var(--fn-panel-shape)"
+        opacity="var(--fn-shape-opacity)"
+        transform="rotate(10 84 6)"
       />
 
-      {/* red accent (business => sand) */}
+      {/* linee sottili: accento principale del pannello */}
       <path
-        d="M -10 38 L 20 44 L 36 58 L 56 80 L 112 112 L -10 112 Z"
-        fill="var(--fn-choice-red)"
-        opacity="0.7"
-      />
-
-      {/* darkred tiny accent (business => sand) */}
-      <path
-        d="M 18 50 L 28 54 L 36 66 L 46 74 L 60 86 L 44 90 L 18 62 Z"
-        fill="var(--fn-choice-darkred)"
-        opacity={variant === "pro" ? 0.7 : 0.6}
-      />
-
-      {/* line: diagonal echo */}
-      <path
-        d="M -10 78 L 22 66 L 44 72 L 70 60 L 112 46"
+        d="M -8 38 C 10 28, 30 56, 52 40 S 80 30, 110 44"
         fill="none"
-        stroke="var(--fn-choice-deep)"
-        strokeWidth="2.2"
-        opacity="0.8"
+        stroke="var(--fn-panel-accent)"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        opacity="var(--fn-shape-opacity)"
+      />
+      <path
+        d="M -6 74 L 20 64 L 42 70 L 66 58 L 110 44"
+        fill="none"
+        stroke="var(--fn-panel-accent)"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="var(--fn-shape-opacity)"
+      />
+
+      {/* linea secondaria super sottile (accenno, non dominante) */}
+      <path
+        d="M 8 16 L 28 10 L 44 18 L 62 10 L 92 22"
+        fill="none"
+        stroke="var(--fn-panel-accent-2)"
+        strokeWidth="1.05"
+        strokeLinecap="round"
+        opacity="0.55"
       />
     </svg>
   );

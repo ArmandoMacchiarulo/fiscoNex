@@ -1,0 +1,58 @@
+/* =========================================================
+   FiscoNex — Variant overrides
+   - Set data-variant on a page root element.
+   - For backward compatibility with older markup we also
+     support data-brand="gate".
+   ========================================================= */
+
+/* ---------- Gate (cancello) ---------- */
+[data-variant="gate"],
+[data-brand="gate"] {
+  --fn-page-bg: var(--fn-c-bg-base);
+  --fn-gate-bg: var(--fn-page-bg);
+
+  /* Weights (guidelines, not matematiche) */
+  --fn-w-primary: 0.35;
+  --fn-w-secondary: 0.35;
+  --fn-w-accent-1: 0.15; /* blue */
+  --fn-w-accent-2: 0.15; /* red */
+
+  --fn-accent-1: var(--fn-c-accent-blue);
+  --fn-accent-2: var(--fn-c-accent-red);
+}
+
+/* ---------- Business ---------- */
+[data-variant="business"] {
+  --fn-page-bg: var(--fn-c-bg-base);
+  --fn-gate-bg: var(--fn-page-bg);
+
+  --fn-w-primary: 0.58;
+  --fn-w-secondary: 0.32;
+  --fn-w-accent-1: 0.14; /* blue */
+  --fn-w-accent-2: 0;
+
+  --fn-accent-1: var(--fn-c-accent-blue);
+  --fn-accent-2: var(--fn-c-accent-red);
+}
+
+/* ---------- Professional ---------- */
+[data-variant="professional"] {
+  --fn-page-bg: var(--fn-c-bg-base);
+  --fn-gate-bg: var(--fn-page-bg);
+
+  --fn-w-primary: 0.58;
+  --fn-w-secondary: 0.32;
+  --fn-w-accent-1: 0;
+  --fn-w-accent-2: 0.14; /* orange */
+
+  --fn-accent-1: var(--fn-c-accent-blue);
+  --fn-accent-2: var(--fn-c-accent-red);
+}
+
+/* Header is always sand-ish (light) */
+.fn-site-header {
+  background: var(--fn-header-bg);
+  border-bottom: 1px solid var(--fn-header-border);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

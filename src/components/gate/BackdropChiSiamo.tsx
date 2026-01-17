@@ -1,339 +1,141 @@
 export default function BackdropChiSiamo() {
   return (
-    <div className="fn-backdrop-layer fn-backdrop-chisiamo" aria-hidden="true">
-      {/* SFONDO: Cielo (z basso) */}
-      <div className="fn-layer fn-layer--cielo" />
-
-      {/* PIANI INTERMEDI (SVG) */}
+    <div className="fn-backdrop-layer fn-no-veil" aria-hidden="true">
       <svg
-        className="fn-layer fn-layer--piani-svg"
+        className="fn-backdrop-svg"
         viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid slice"
         aria-hidden="true"
       >
-        {/* =========================
-            DESKTOP (default)
-           ========================= */}
+        {/* CHI SIAMO — Gate (lighter ~ -40% elements)
+            - NO background rect (bg è sul main)
+            - Linee sottili + forme piccole/medie
+            - Opacity 0.8–0.9 (var --fn-shape-opacity)
+        */}
 
-        {/* PIANO 9 (DESKTOP) — sand */}
-        <path
-          className="chisiamo-desktop p9"
-          d="
-            M -1 25
-            L 10 20
-            L 22 30
-            L 34 23
-            L 48 35
-            L 62 25
-            L 76 39
-            L 90 30
-            L 110 41
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-sand)"
+        {/* --- FORME (primari) --- */}
+        <rect
+          x="-6"
+          y="8"
+          width="30"
+          height="26"
+          rx="12"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-8 9 20)"
+        />
+        <rect
+          x="72"
+          y="-6"
+          width="30"
+          height="28"
+          rx="12"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(10 87 8)"
         />
 
-        {/* PIANO 8 (DESKTOP) — peach */}
-        <path
-          className="chisiamo-desktop p8"
-          d="
-            M -1 40
-            L 6 35
-            L 12 44
-            L 18 35
-            L 26 43
-            L 34 40
-            L 42 48
-            L 50 43
-            L 60 50
-            L 70 41
-            L 78 49
-            L 86 44
-            L 94 50
-            L 102 42
-            L 110 48
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-peach)"
+        <rect
+          x="6"
+          y="58"
+          width="22"
+          height="22"
+          rx="10"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(10 17 69)"
+        />
+        <rect
+          x="72"
+          y="62"
+          width="26"
+          height="26"
+          rx="12"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-10 85 75)"
         />
 
-        {/* PIANO 7 (DESKTOP) — red (prima era 6a) */}
-        <path
-          className="chisiamo-desktop p7"
-          d="
-            M -1 35
-            L 13 38
-            L 17 43
-            L 25 40
-            L 35 55
-            L 50 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-red)"
+        <rect
+          x="38"
+          y="14"
+          width="18"
+          height="18"
+          rx="8"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-14 47 23)"
+        />
+        <rect
+          x="44"
+          y="68"
+          width="18"
+          height="18"
+          rx="8"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(12 53 77)"
         />
 
-        {/* PIANO 6 (DESKTOP) — darkred (prima era 6b) */}
+        {/* --- LINEE SOTTILI (accenti) --- */}
         <path
-          className="chisiamo-desktop p6"
-          d="
-            M -1 35
-            L 2 33
-            L 10 40
-            L 13 48
-            L 17 50
-            L 25 63
-            L 35 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-darkred)"
+          d="M -8 26 C 12 12, 30 38, 50 24 S 78 16, 110 32"
+          fill="none"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.35"
+          strokeLinecap="round"
+          opacity="var(--fn-shape-opacity)"
+        />
+        <path
+          d="M -8 58 L 16 48 L 34 54 L 54 44 L 76 50 L 110 40"
+          fill="none"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.15"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="var(--fn-shape-opacity)"
+        />
+        <path
+          d="M -8 74 L 12 66 L 30 72 L 52 60 L 72 66 L 110 58"
+          fill="none"
+          stroke="var(--fn-c-accent-red)"
+          strokeWidth="1.15"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="var(--fn-shape-opacity)"
         />
 
-        {/* PIANO 5 (DESKTOP) */}
+        {/* hairline dashed (solo uno) */}
         <path
-          className="chisiamo-desktop p5"
-          d="
-            M -1 42
-            L 10 58
-            L 18 70
-            L 55 70
-            L 70 58
-            L 80 63
-            L 98 55
-            L 110 30
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-deep)"
+          d="M 6 14 L 22 10 L 38 16 L 56 10 L 76 18 L 96 14"
+          fill="none"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+          opacity="0.55"
+          strokeDasharray="2.2 2.8"
         />
 
-        {/* PIANO 4 (DESKTOP) */}
-        <path
-          className="chisiamo-desktop p4"
-          d="
-            M -1 50
-            L 8 60
-            L 25 70
-            L 55 70
-            L 70 58
-            L 80 63
-            L 98 50
-            L 110 30
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-red)"
+        {/* --- ACCENTO puntuale (solo 2, più pulito) --- */}
+        <circle
+          cx="10"
+          cy="50"
+          r="6"
+          fill="none"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.05"
+          opacity="0.62"
         />
-
-        {/* PIANO 3 (DESKTOP) */}
-        <path
-          className="chisiamo-desktop p3"
-          d="
-            M -1 55
-            L 3 61
-            L 13 70
-            L 85 70
-            L 90 58
-            L 94 50
-            L 98 45
-            L 110 30
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-darkred)"
-        />
-
-        {/* PIANO 2 (DESKTOP) */}
-        <path
-          className="chisiamo-desktop p2"
-          d="
-            M -1 58
-            L 2 63
-            L 12 70
-            L 85 70
-            L 94 56
-            L 96 60
-            L 98 58
-            L 110 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-deep)"
-        />
-
-        {/* =========================
-            MOBILE (<= 840px)
-            Regola: 65 è “non visibile”
-            - punti desktop >= 65 restano >= 65
-            - punti desktop < 65 non diventano > 64
-           ========================= */}
-
-        {/* PIANO 9 (MOBILE) — sand (meno punte) */}
-        <path
-          className="chisiamo-mobile p9"
-          d="
-            M -1 35
-            L 18 33
-            L 40 39
-            L 64 35
-            L 88 43
-            L 96 39
-            L 110 44
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-sand)"
-        />
-
-        {/* PIANO 8 (MOBILE) — peach (meno punte) */}
-        <path
-          className="chisiamo-mobile p8"
-          d="
-            M -1 56
-            L 22 46
-            L 48 56
-            L 68 50
-            L 76 54
-            L 94 48
-            L 110 56
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-peach)"
-        />
-
-        {/* PIANO 7 (MOBILE) — red (ex 6a) */}
-        <path
-          className="chisiamo-mobile p7"
-          d="
-            M -1 45
-            L 13 48
-            L 17 50
-            L 25 56
-            L 50 64
-            L 50 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-red)"
-        />
-
-        {/* PIANO 6 (MOBILE) — darkred (ex 6b) */}
-        <path
-          className="chisiamo-mobile p6"
-          d="
-            M -1 45
-            L 2 43
-            L 10 50
-            L 15 58
-            L 17 60
-            L 38 70
-            L 50 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-darkred)"
-        />
-
-        {/* PIANO 5 (MOBILE) */}
-        <path
-          className="chisiamo-mobile p5"
-          d="
-            M -1 52
-            L 4 60
-            L 5 58
-            L 6 60
-            L 10 64
-            L 18 70
-            L 55 70
-            L 70 64
-            L 80 63
-            L 98 64
-            L 110 38
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-deep)"
-        />
-
-        {/* PIANO 4 (MOBILE) */}
-        <path
-          className="chisiamo-mobile p4"
-          d="
-            M -1 58
-            L 8 63
-            L 25 70
-            L 55 70
-            L 70 64
-            L 80 64
-            L 98 58
-            L 110 38
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-red)"
-        />
-
-        {/* PIANO 3 (MOBILE) */}
-        <path
-          className="chisiamo-mobile p3"
-          d="
-            M -1 59
-            L 2 62
-            L 3 60
-            L 4 61
-            L 13 70
-            L 85 70
-            L 90 64
-            L 94 56
-            L 98 51
-            L 110 36
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-darkred)"
-        />
-
-        {/* PIANO 2 (MOBILE) */}
-        <path
-          className="chisiamo-mobile p2"
-          d="
-            M -1 64
-            L 2 63
-            L 12 70
-            L 80 70
-            L 94 61
-            L 96 63
-            L 98 65
-            L 110 70
-            L 110 100
-            L -10 100
-            Z
-          "
-          fill="var(--fn-p-deep)"
+        <circle
+          cx="90"
+          cy="44"
+          r="7"
+          fill="none"
+          stroke="var(--fn-c-accent-red)"
+          strokeWidth="1.05"
+          opacity="0.62"
         />
       </svg>
-
-      {/* PRIMO PIANO: Mare/terra (z alto) */}
-      <div className="fn-layer fn-layer--primo-piano" />
     </div>
   );
 }

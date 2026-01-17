@@ -23,7 +23,7 @@ export default async function Home({
     >
       <Link
         href={`/${otherLang}`}
-        className="me-2 fixed right-4 top-4 z-50 rounded-full border border-black/15 bg-white/40 px-3 py-2 text-xs font-semibold uppercase tracking-wider fn-text backdrop-blur transition hover:bg-white/65"
+        className="mr-2 fixed right-4 top-4 z-50 rounded-full border border-black/15 bg-white/40 px-3 py-2 text-xs font-semibold uppercase tracking-wider fn-text backdrop-blur transition hover:bg-white/65"
         aria-label={lang === "en" ? "Passa a Italiano" : "Switch to English"}
       >
         {otherLang}
@@ -32,7 +32,7 @@ export default async function Home({
       {/* STEP 1: Intro senza immagine, con backdrop CSS */}
       <GateSection section="intro">
         <div
-          className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
+          className="relative w-full flex flex-col items-center justify-center text-center px-3"
           style={{ minHeight: "100dvh" }}
         >
           <Reveal>
@@ -52,7 +52,7 @@ export default async function Home({
           </Reveal>
 
           <div
-            className="position-absolute bottom-0 start-50 translate-middle-x pb-4"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 pb-4"
             style={{ zIndex: 50 }}
           >
             <Link
@@ -63,7 +63,7 @@ export default async function Home({
               <img
                 src={asset("/images/down.webp")}
                 alt="down arrow"
-                className="d-block fn-down-arrow"
+                className="block fn-down-arrow"
                 style={{ width: 44, height: 44, opacity: 0.65 }}
               />
             </Link>
@@ -73,7 +73,7 @@ export default async function Home({
 
       <GateSection id="section-2" section="choice">
         <div
-          className="position-relative w-100 d-flex flex-column align-items-center justify-content-center text-center px-3"
+          className="relative w-full flex flex-col items-center justify-center text-center px-3"
           style={{ minHeight: "100dvh" }}
         >
           {/* Orchestrazione: base -> backdrop (0.5s) -> pulsanti (1.5s) */}
@@ -81,10 +81,10 @@ export default async function Home({
 
           <h1 className="text-3xl font-semibold">{t.chooseTitle}</h1>
 
-          <div className="fn-choice-buttons mt-10 d-flex flex-column gap-4 flex-sm-row justify-content-sm-center">
+          <div className="fn-choice-buttons mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href={`/${lang}/professional`}
-              className="fn-choice-card fn-choice-card--pro group d-flex align-items-center justify-content-center px-0 py-0"
+              className="fn-choice-card fn-choice-card--pro group flex items-center justify-center px-0 py-0"
               style={{
                 textDecoration: "none",
                 width: "320px",
@@ -96,7 +96,7 @@ export default async function Home({
                 <img
                   src={asset("/images/FiscoNex-Professional.svg")}
                   alt={t.professional}
-                  className="d-block w-100 h-100 transition-transform fn-bounce-hover"
+                  className="block w-full h-full transition-transform fn-bounce-hover"
                   style={{ objectFit: "contain", padding: "24px" }}
                 />
               </span>
@@ -104,7 +104,7 @@ export default async function Home({
 
             <Link
               href={`/${lang}/business`}
-              className="fn-choice-card fn-choice-card--bus group d-flex align-items-center justify-content-center px-0 py-0"
+              className="fn-choice-card fn-choice-card--bus group flex items-center justify-center px-0 py-0"
               style={{
                 textDecoration: "none",
                 width: "320px",
@@ -116,7 +116,7 @@ export default async function Home({
                 <img
                   src={asset("/images/FiscoNex-Business.svg")}
                   alt={t.business}
-                  className="d-block w-100 h-100 transition-transform fn-bounce-hover"
+                  className="block w-full h-full transition-transform fn-bounce-hover"
                   style={{ objectFit: "contain", padding: "24px" }}
                 />
               </span>

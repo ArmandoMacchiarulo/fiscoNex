@@ -1,9 +1,11 @@
-import BootstrapClient from "@/components/BootstrapClient";
-import "@/styles/gate-backdrops.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./globals.css";
+import AnchorScrollClient from "@/components/scroll/AnchorScrollClient";
 
-import Script from "next/script";
+import "./globals.css";
+import "@/styles/fn.tokens.css";
+import "@/styles/fn.variants.css";
+import "@/styles/fn.layout.css";
+import "@/styles/fn.motion.css";
+import "@/styles/gate-backdrops.css";
 
 export default function RootLayout({
   children,
@@ -13,14 +15,8 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body className="bg-white text-black antialiased">
-        <BootstrapClient />
+        <AnchorScrollClient />
         {children}
-
-        {/* Bootstrap JS bundle (carousel, dropdown, ecc.) */}
-        <Script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

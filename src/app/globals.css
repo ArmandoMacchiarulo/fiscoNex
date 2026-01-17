@@ -17,18 +17,35 @@
 
   /* Header */
   --fn-header-h: 64px;
+  /* Background base neutro (piatto) */
+  --fn-c-bg-base: #d9dcd6;
+  /* Palette (nuova) */
+  --fn-c-primary-bus: #93b2be; /* primario business */
+  --fn-c-primary-pro: #fcaf58; /* primario professional */
+  --fn-c-accent-blue: #16425b; /* accento business / gate */
+  --fn-c-accent-red: #da6d58; /* accento professional / gate */
 
-  /* Palette (cugino) */
-  --fn-p-main: #468d8b; /* main da sfondo */
-  --fn-p-deep: #213843; /* secondo */
-  --fn-p-mint: #74b3a8; /* terzo */
-  --fn-p-sand: #f6dac0; /* geometrie */
-  --fn-p-peach: #feaf76; /* geometrie */
-  --fn-p-red: #da6d58; /* geometrie: minor gate, 0 business, + professional */
-  --fn-p-darkred: #7d3533; /* geometrie: minor gate, 0 business, + professional */
+  /* Dettagli (per dopo) */
+  --fn-c-detail-darkblue: #223843;
+  --fn-c-detail-blue: #3a7ca5;
+  --fn-c-detail-azure: #81c3d7;
+  --fn-c-detail-darkred: #7d3533;
 
-  /* Gate defaults */
-  --fn-gate-bg: var(--fn-p-main);
+  /* Background base (piatto) */
+  --fn-page-bg: var(--fn-c-bg-base);
+  --fn-shape-opacity: 0.86;
+
+  /* Legacy aliases (compat: backdrops esistenti) */
+  --fn-p-main: var(--fn-c-primary-bus);
+  --fn-p-sand: var(--fn-c-primary-pro);
+  --fn-p-peach: var(--fn-c-primary-pro);
+  --fn-p-deep: var(--fn-c-primary-bus);
+  --fn-p-mint: var(--fn-c-accent-blue);
+  --fn-p-red: var(--fn-c-accent-red);
+  --fn-p-darkred: var(--fn-c-accent-blue);
+
+  /* Gate base color used by svg backdrops */
+  --fn-gate-bg: var(--fn-page-bg);
 }
 
 /* Tailwind v4 directive
@@ -71,9 +88,15 @@ body {
    Scroll snapping helpers
    ------------------------- */
 .fn-snap {
+  height: 100dvh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   scroll-padding-top: 0px;
+
+  background: var(--fn-page-bg);
 }
 
 .fn-section {
@@ -81,7 +104,7 @@ body {
   scroll-snap-stop: always;
 }
 
-@media (max-height: 730px) {
+@media (max-height: 730px) and (hover: hover) and (pointer: fine) {
   .fn-snap {
     scroll-snap-type: y proximity;
   }
@@ -101,7 +124,9 @@ body {
 }
 
 .fn-down-arrow {
-  transition: transform 180ms ease, opacity 180ms ease;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
 }
 
 .fn-arrow-link:hover .fn-down-arrow {
@@ -158,7 +183,9 @@ option,
   opacity: 0;
   transform: translateY(6px);
   pointer-events: none;
-  transition: opacity 500ms ease, transform 500ms ease;
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
 }
 
 section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-buttons {
@@ -198,12 +225,18 @@ section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
    (così l’hover stacca subito e non “ingrassa” il container)
    --------------------------------------------------------- */
 .fn-choice-visual {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
 
   /* IMPORTANT: non cattura hover, lo cattura il Link */
   pointer-events: none;
+
+  /* FIX FIREFOX: dimensioni certe nel flex */
+  width: 100%;
+  height: 100%;
+  flex: 0 0 100%;
+  min-width: 0;
 
   /* scale & bounce settings */
   --fn-choice-enter-from: 0.92; /* piccolo ingresso */
@@ -214,6 +247,12 @@ section[data-section="choice"][data-choice-stage="buttons"] .fn-choice-card {
   will-change: transform, opacity;
   transform: translateX(0px) scale(var(--fn-choice-enter-from));
   opacity: 0;
+}
+
+.fn-choice-visual > img {
+  width: 100%;
+  height: 100%;
+  flex: 0 0 auto;
 }
 
 /* Entrata: pro da sx, bus da dx (solo visual) */

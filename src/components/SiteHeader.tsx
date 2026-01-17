@@ -130,7 +130,7 @@ export default function SiteHeader({
       ref={(n) => {
         headerRef.current = n;
       }}
-      className="sticky top-0 z-50 border-b border-black/10 bg-white/80 fn-text backdrop-blur"
+      className="fn-site-header sticky top-0 z-50 fn-text"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
         <Link href={base} className="flex items-center gap-2 shrink-0">
@@ -146,19 +146,19 @@ export default function SiteHeader({
         <nav className="hidden sm:flex flex-wrap items-center justify-end gap-1 md:gap-2 text-sm">
           <Link
             href={plansHref}
-            className="rounded-xl px-3 py-1 hover:bg-black/5 transition text-decoration-none fn-text"
+            className="rounded-xl px-3 py-1 hover:bg-black/5 transition no-underline fn-text"
           >
             {t.navPlans}
           </Link>
           <Link
             href={contactHref}
-            className="rounded-xl px-3 py-1 hover:bg-black/5 transition text-decoration-none fn-text"
+            className="rounded-xl px-3 py-1 hover:bg-black/5 transition no-underline fn-text"
           >
             {t.navContact}
           </Link>
           <Link
             href={whoHref}
-            className="rounded-xl px-3 py-1 hover:bg-black/5 transition text-decoration-none fn-text"
+            className="rounded-xl px-3 py-1 hover:bg-black/5 transition no-underline fn-text"
           >
             {t.navWho}
           </Link>
@@ -206,23 +206,23 @@ export default function SiteHeader({
       </div>
 
       {mobileOpen ? (
-        <div className="sm:hidden border-t border-black/10 bg-white/80 backdrop-blur">
+        <div className="sm:hidden border-t border-black/10 bg-[color:var(--fn-header-bg)]">
           <nav className="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2 text-sm">
             <Link
               href={plansHref}
-              className="rounded-xl px-3 py-2 hover:bg-black/5 transition text-decoration-none fn-text"
+              className="rounded-xl px-3 py-2 hover:bg-black/5 transition no-underline fn-text"
             >
               {t.navPlans}
             </Link>
             <Link
               href={contactHref}
-              className="rounded-xl px-3 py-2 hover:bg-black/5 transition text-decoration-none fn-text"
+              className="rounded-xl px-3 py-2 hover:bg-black/5 transition no-underline fn-text"
             >
               {t.navContact}
             </Link>
             <Link
               href={whoHref}
-              className="rounded-xl px-3 py-2 hover:bg-black/5 transition text-decoration-none fn-text"
+              className="rounded-xl px-3 py-2 hover:bg-black/5 transition no-underline fn-text"
             >
               {t.navWho}
             </Link>

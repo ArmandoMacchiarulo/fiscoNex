@@ -1,0 +1,50 @@
+/* =========================================================
+   FiscoNex — Layout primitives
+   ========================================================= */
+
+/* For flex parents: allow inner scroll containers */
+.fn-main {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* Full viewport section with centered content */
+.fn-vcenter {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0;
+}
+
+/* Continuous background should live on the scroll container */
+.fn-page-main {
+  isolation: isolate;
+  position: relative;
+  background-color: var(--fn-page-bg);
+  background-image: var(--fn-page-bg-image);
+  background-repeat: no-repeat;
+  background-position: var(--fn-page-bg-position);
+  background-size: var(--fn-page-bg-size);
+}
+
+/* Soft tint overlay (optional) */
+.fn-page-main.fn-has-tint::before {
+  z-index: 0;
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.0;
+}
+
+.fn-page-main > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Full-bleed helper (escape a max-width container) */
+.fn-fullbleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}

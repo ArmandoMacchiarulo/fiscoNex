@@ -1,59 +1,77 @@
 export default function BackdropSceltaBase() {
   return (
     <div className="fn-backdrop-layer fn-choice-base" aria-hidden="true">
-      {/* Base astratta (stile Intro): poche forme, colori condivisi */}
+      {/* Base astratta: NO background rect (bg è sul main) */}
       <svg
         className="fn-backdrop-svg"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid slice"
       >
-        <rect x="0" y="0" width="100" height="100" fill="var(--fn-gate-bg)" />
-
-        {/* sabbia (basso) */}
+        {/* piccoli blocchi (primari) */}
         <rect
-          x="-16"
-          y="62"
-          width="70"
-          height="56"
-          rx="18"
-          ry="18"
-          fill="var(--fn-p-sand)"
-          opacity="0.95"
-          transform="rotate(-10 20 86)"
+          x="-8"
+          y="64"
+          width="32"
+          height="32"
+          rx="12"
+          ry="12"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-10 8 80)"
+        />
+        <rect
+          x="72"
+          y="8"
+          width="28"
+          height="28"
+          rx="12"
+          ry="12"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(10 86 22)"
         />
 
-        {/* menta (alto) */}
-        <rect
-          x="56"
-          y="-18"
-          width="58"
-          height="46"
-          rx="16"
-          ry="16"
-          fill="var(--fn-p-mint)"
-          opacity="0.95"
-          transform="rotate(14 86 6)"
-        />
-
-        {/* linea morbida */}
+        {/* linee sottili (accenti) */}
         <path
-          d="M -10 28 C 18 14, 28 46, 52 30 S 84 28, 112 38"
+          d="M -6 40 C 14 28, 32 58, 52 42 S 78 30, 106 46"
           fill="none"
-          stroke="var(--fn-p-deep)"
-          strokeWidth="2.6"
+          stroke="var(--fn-c-accent-blue)"
+          strokeWidth="1.5"
           strokeLinecap="round"
-          opacity="0.9"
+          opacity="var(--fn-shape-opacity)"
+        />
+        <path
+          d="M 4 78 L 26 68 L 46 74 L 68 62 L 104 50"
+          fill="none"
+          stroke="var(--fn-c-accent-red)"
+          strokeWidth="1.35"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="var(--fn-shape-opacity)"
         />
 
-        {/* linea dura */}
-        <path
-          d="M -10 72 L 36 60 L 66 68 L 112 52"
-          fill="none"
-          stroke="var(--fn-p-red)"
-          strokeWidth="3.2"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          opacity="0.9"
+        {/* micro-dettagli (piccoli) */}
+        <rect
+          x="8"
+          y="10"
+          width="14"
+          height="14"
+          rx="6"
+          ry="6"
+          fill="var(--fn-c-primary-pro)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(-12 15 17)"
+        />
+        <rect
+          x="78"
+          y="74"
+          width="16"
+          height="16"
+          rx="7"
+          ry="7"
+          fill="var(--fn-c-primary-bus)"
+          opacity="var(--fn-shape-opacity)"
+          transform="rotate(14 86 82)"
         />
       </svg>
     </div>

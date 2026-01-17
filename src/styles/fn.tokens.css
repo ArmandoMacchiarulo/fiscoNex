@@ -1,0 +1,33 @@
+/* =========================================================
+   FiscoNex — System tokens (base)
+   - Keep globals.css as single Tailwind entry.
+   - This file only defines higher-level semantic tokens.
+   ========================================================= */
+
+:root {
+  /* Ink */
+  --fn-ink-rgb: var(--fn-text-rgb);
+  --fn-ink: rgb(var(--fn-ink-rgb));
+
+  /* Header (sand theme) */
+  --fn-header-bg: color-mix(in srgb, var(--fn-c-bg-base) 92%, transparent);
+  --fn-header-border: rgb(0 0 0 / 0.08);
+
+  /* Surfaces */
+  --fn-surface: rgb(255 255 255 / 0.1);
+  --fn-surface-strong: rgb(255 255 255 / 0.86);
+  --fn-border: rgb(255 255 255 / 0.16);
+
+  /* Radius & shadow */
+  --fn-radius-lg: 28px;
+  --fn-shadow: 0 18px 60px rgb(0 0 0 / 0.12);
+
+  /* Continuous page background (set by page shell) */
+  --fn-page-bg-image: none;
+  --fn-page-bg-position: top center;
+  --fn-page-bg-size: cover;
+
+  /* Variant tints */
+  --fn-page-tint-1: transparent;
+  --fn-page-tint-2: transparent;
+}

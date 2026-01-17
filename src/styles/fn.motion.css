@@ -1,0 +1,33 @@
+/* =========================================================
+   FiscoNex — Motion primitives
+   ========================================================= */
+
+.fn-reveal {
+  width: 100%;
+}
+
+.fn-reveal__inner {
+  opacity: 0;
+  transform: translateY(var(--fn-reveal-y, 12px));
+  filter: blur(6px);
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--fn-reveal-delay, 0ms);
+}
+
+.fn-reveal__inner.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-reveal__inner {
+    transition: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

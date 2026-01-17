@@ -8,11 +8,33 @@ function setStage(host: HTMLElement, stage: Stage) {
   host.setAttribute("data-choice-stage", stage);
 }
 
-export default function ChoiceStageController({
-  once = true,
-}: {
-  once?: boolean;
-}) {
+function isScrollable(el: HTMLElement) {
+  const s = window.getComputedStyle(el);
+  return /(auto|scroll)/.test(s.overflowY);
+}
+
+function getScrollParent(el: HTMLElement | null): HTMLElement | null {
+  let cur = el?.parentElement ?? null;
+  while (cur && cur !== document.body) {
+    if (isScrollable(cur)) return cur;
+    cur = cur.parentElement;
+  }
+  return null;
+}
+
+function isMostlyVisible(target: HTMLElement, root: HTMLElement | null) {
+  const t = target.getBoundingClientRect();
+  const r = (root ?? document.documentElement).getBoundingClientRect();
+
+  const top = Math.max(t.top, r.top);
+  const bottom = Math.min(t.bottom, r.bottom);
+  const visible = Math.max(0, bottom - top);
+  const ratio = visible / Math.max(1, t.height);
+
+  return ratio > 0.35;
+}
+
+export default function ChoiceStageController({ once = true }: { once?: boolean }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const played = useRef(false);
   const timers = useRef<number[]>([]);
@@ -21,11 +43,10 @@ export default function ChoiceStageController({
     const marker = ref.current;
     if (!marker) return;
 
-    // Più robusto: non dipendo dal tag <section>, ma dal data-section
-    const host = marker.closest(
-      '[data-section="choice"]'
-    ) as HTMLElement | null;
+    const host = marker.closest('[data-section="choice"]') as HTMLElement | null;
     if (!host) return;
+
+    const root = getScrollParent(host);
 
     const clearTimers = () => {
       for (const t of timers.current) window.clearTimeout(t);
@@ -39,17 +60,10 @@ export default function ChoiceStageController({
       clearTimers();
       setStage(host, "base");
 
-      // 0.5s: start backdrop
-      timers.current.push(
-        window.setTimeout(() => setStage(host, "backdrop"), 500)
-      );
-      // 1.5s: show buttons
-      timers.current.push(
-        window.setTimeout(() => setStage(host, "buttons"), 1500)
-      );
+      timers.current.push(window.setTimeout(() => setStage(host, "backdrop"), 500));
+      timers.current.push(window.setTimeout(() => setStage(host, "buttons"), 1500));
     };
 
-    // reset quando esci (solo se once=false)
     const reset = () => {
       clearTimers();
       played.current = false;
@@ -59,10 +73,19 @@ export default function ChoiceStageController({
     // init
     setStage(host, "idle");
 
-    // IntersectionObserver sul CONTAINER (non sul marker)
+    // Fallback: if IO never fires on Firefox inside a scroll-container,
+    // ensure the buttons become visible when the section is in view.
+    const safety = window.setTimeout(() => {
+      const stage = host.getAttribute("data-choice-stage") as Stage | null;
+      if (stage === "idle" && isMostlyVisible(host, root)) run();
+    }, 600);
+
     if (typeof IntersectionObserver === "undefined") {
       run();
-      return;
+      return () => {
+        window.clearTimeout(safety);
+        clearTimers();
+      };
     }
 
     const io = new IntersectionObserver(
@@ -73,17 +96,20 @@ export default function ChoiceStageController({
         if (e.isIntersecting) run();
         else if (!once) reset();
       },
-      { threshold: 0.5 } // sezione quasi full-screen: 0.5 è perfetto
+      {
+        root,
+        threshold: 0.35,
+      }
     );
 
     io.observe(host);
 
     return () => {
+      window.clearTimeout(safety);
       clearTimers();
       io.disconnect();
     };
   }, [once]);
 
-  // marker “normale”, NON sr-only
   return <div ref={ref} aria-hidden="true" className="fn-choice-marker" />;
 }
