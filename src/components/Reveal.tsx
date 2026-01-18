@@ -6,12 +6,14 @@ export default function Reveal({
   children,
   className = "",
   delayMs = 0,
+  x = 0,
   y = 12,
   once = true,
 }: {
   children: React.ReactNode;
   className?: string;
   delayMs?: number;
+  x?: number;
   y?: number;
   once?: boolean;
 }) {
@@ -27,6 +29,10 @@ export default function Reveal({
       return;
     }
 
+    // If the element lives inside a scrollable container (e.g. .fn-snap),
+    // use it as the observer root so reveals work with internal scrolling.
+    const root = (el.closest?.(".fn-snap") as HTMLElement | null) ?? null;
+
     const io = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -40,10 +46,10 @@ export default function Reveal({
         }
       },
       {
-        root: null,
+        root,
         rootMargin: "0px 0px -10% 0px",
         threshold: 0.15,
-      }
+      },
     );
 
     io.observe(el);
@@ -63,6 +69,7 @@ export default function Reveal({
           position: "relative",
           // CSS vars used by globals.css
           "--fn-reveal-delay": `${delayMs}ms`,
+          "--fn-reveal-x": `${x}px`,
           "--fn-reveal-y": `${y}px`,
         } as React.CSSProperties
       }

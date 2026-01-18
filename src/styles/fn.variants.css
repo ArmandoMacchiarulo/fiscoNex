@@ -1,8 +1,5 @@
 /* =========================================================
    FiscoNex — Variant overrides
-   - Set data-variant on a page root element.
-   - For backward compatibility with older markup we also
-     support data-brand="gate".
    ========================================================= */
 
 /* ---------- Gate (cancello) ---------- */
@@ -11,7 +8,6 @@
   --fn-page-bg: var(--fn-c-bg-base);
   --fn-gate-bg: var(--fn-page-bg);
 
-  /* Weights (guidelines, not matematiche) */
   --fn-w-primary: 0.35;
   --fn-w-secondary: 0.35;
   --fn-w-accent-1: 0.15; /* blue */
@@ -40,16 +36,65 @@
   --fn-page-bg: var(--fn-c-bg-base);
   --fn-gate-bg: var(--fn-page-bg);
 
+  /* Background: flat base + soft premium blobs/lines.
+     Base 100%, blobs ~40% with these proportions:
+     - bus 50%  -> ~0.20 alpha
+     - pro 35%  -> ~0.14 alpha
+     - blue 5%  -> ~0.02 alpha
+     - red 10%  -> ~0.04 alpha
+  */
+  --fn-page-bg-image:
+    radial-gradient(
+      70rem 52rem at 18% 8%,
+      rgb(147 178 190 / 0.2) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      64rem 48rem at 82% 12%,
+      rgb(252 175 88 / 0.14) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      56rem 44rem at 26% 72%,
+      rgb(147 178 190 / 0.14) 0%,
+      transparent 64%
+    ),
+    radial-gradient(
+      52rem 42rem at 78% 78%,
+      rgb(218 109 88 / 0.04) 0%,
+      transparent 66%
+    ),
+    radial-gradient(
+      48rem 40rem at 56% 48%,
+      rgb(22 66 91 / 0.02) 0%,
+      transparent 66%
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgb(0 0 0 / 0.03) 0 1px,
+      transparent 1px 220px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgb(0 0 0 / 0.02) 0 1px,
+      transparent 1px 260px
+    );
+  --fn-page-bg-position: top center;
+  --fn-page-bg-size: cover;
+
+  /* Header: sticky with base background at 0.8 opacity */
+  --fn-header-bg: rgb(217 220 214 / 0.8);
+
   --fn-w-primary: 0.58;
   --fn-w-secondary: 0.32;
   --fn-w-accent-1: 0;
-  --fn-w-accent-2: 0.14; /* orange */
+  --fn-w-accent-2: 0.14;
 
   --fn-accent-1: var(--fn-c-accent-blue);
   --fn-accent-2: var(--fn-c-accent-red);
 }
 
-/* Header is always sand-ish (light) */
+/* Header */
 .fn-site-header {
   background: var(--fn-header-bg);
   border-bottom: 1px solid var(--fn-header-border);

@@ -9,7 +9,7 @@
    Design tokens
    ------------------------- */
 :root {
-  --background: #ffffff;
+  --background: #d9dcd6;
 
   /* Testo (uguale al logo) */
   --fn-text-rgb: 44 44 44;
@@ -99,9 +99,23 @@ body {
   background: var(--fn-page-bg);
 }
 
+/* When the scroll container also hosts a sticky header */
+.fn-snap.fn-has-header {
+  scroll-padding-top: var(--fn-header-h);
+}
+
 .fn-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+
+  /* Default: full viewport (gate) */
+  min-height: 100dvh;
+}
+
+/* If the header is inside the scroll container, sections should fill the
+   remaining viewport height (viewport minus header). */
+.fn-has-header .fn-section {
+  min-height: calc(100dvh - var(--fn-header-h));
 }
 
 @media (max-height: 730px) and (hover: hover) and (pointer: fine) {

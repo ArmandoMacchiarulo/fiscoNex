@@ -17,6 +17,12 @@
   padding: 1.25rem 0;
 }
 
+/* When a sticky header lives inside the scroll container, center within the
+   remaining viewport height. */
+.fn-has-header .fn-vcenter {
+  min-height: calc(100dvh - var(--fn-header-h));
+}
+
 /* Continuous background should live on the scroll container */
 .fn-page-main {
   isolation: isolate;

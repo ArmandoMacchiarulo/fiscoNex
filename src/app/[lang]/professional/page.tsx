@@ -1,7 +1,8 @@
-import ContactForm from "@/components/ContactForm";
-import Reveal from "@/components/Reveal";
+import ContactSection from "@/components/layout/ContactSection";
 import VariantPageShell from "@/components/layout/VariantPageShell";
-import { FnButton } from "@/components/ui/FnButton";
+import BackdropPro from "@/components/professional/BackdropPro";
+import HeroCurvePanel from "@/components/professional/HeroCurvePanel";
+import MetodoCardsSection from "@/components/professional/MetodoCardsSection";
 import type { Lang } from "@/lib/i18n";
 import { getDict } from "@/lib/i18n";
 
@@ -50,7 +51,6 @@ function getItems(lang: Lang) {
 export default async function ProfessionalPage({
   params,
 }: {
-  // Next.js (sync-dynamic-apis): in some versions `params` is a Promise
   params: Promise<{ lang?: Lang }>;
 }) {
   const { lang: rawLang } = await params;
@@ -64,86 +64,27 @@ export default async function ProfessionalPage({
       : "Un’esperienza premium, chiara e diretta: dalla partenza alla gestione quotidiana, con un metodo semplice e continuo.";
 
   return (
-    <VariantPageShell
-      lang={safeLang}
-      variant="professional"
-      backgroundImage="/images/piani.jpg"
-    >
-      {/* SEZIONE 1: hero + metodo (100vh) */}
-      <section className="fn-section fn-vcenter">
-        <div
-          className="mx-auto rounded-[28px] border border-white/15 bg-white/10 backdrop-blur shadow"
-          style={{
-            maxWidth: "72rem",
-            width: "100%",
-            padding: "2rem 1rem",
-          }}
-        >
-          <Reveal>
-            <div className="backdrop-blur p-5 sm:p-8">
-              <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-center">
-                {t.heroProfessional}
-              </h1>
-              <p className="mt-4 fn-text-90 leading-relaxed text-center">
-                {intro}
-              </p>
-            </div>
-          </Reveal>
+    <VariantPageShell lang={safeLang} variant="professional" scrollMode="page">
+      {/* Backdrop (continuous for the whole page) */}
 
-          <div className="mt-10">
-            <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-              {items.map((it, idx) => (
-                <Reveal key={it.title} delayMs={80 + idx * 70}>
-                  <div className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur p-5 sm:p-6 hover:bg-white/15 transition shadow mx-0 sm:mx-5 my-2">
-                    <div className="text-lg font-medium">{it.title}</div>
-                    <div className="mt-2 text-sm fn-text-80 leading-relaxed">
-                      {it.body}
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+      <BackdropPro />
 
-          <div className="flex justify-center mt-3">
-            <FnButton href="#contatti" variant="sand">
-              {t.navContact}
-            </FnButton>
-          </div>
-        </div>
-      </section>
+      {/* SECTION 1: HERO */}
+      <HeroCurvePanel title={t.heroProfessional} body={intro} />
 
-      {/* SEZIONE 2: parla con noi (100vh) */}
-      <section id="contatti" className="fn-section fn-vcenter">
-        <div
-          className="mx-auto"
-          style={{
-            maxWidth: "72rem",
-            width: "100%",
-            padding: "2rem 1rem",
-          }}
-        >
-          <Reveal>
-            <div className="rounded-3xl border bg-white backdrop-blur p-5 sm:p-8 shadow">
-              <h2 className="text-xl sm:text-2xl font-semibold">
-                {t.contactTitle}
-              </h2>
+      {/* SECTION 2: METODO */}
+      <MetodoCardsSection
+        title={safeLang === "en" ? "Method" : "Metodo"}
+        subtitle={
+          safeLang === "en"
+            ? "Four clear steps, designed to stay simple and predictable."
+            : "Quattro passaggi chiari, progettati per restare semplici e prevedibili."
+        }
+        items={items}
+      />
 
-              <div className="mt-4 rounded-3xl bg-white p-4 sm:p-6 text-black">
-                <ContactForm lang={safeLang} emailPlaceholder="email" />
-              </div>
-            </div>
-          </Reveal>
-
-          <footer className="mt-8 sm:mt-14 border-t border-white/15 pt-4 text-sm fn-text-80 selectable">
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
-              <div>Email: info.business@nomedominio.it</div>
-              <div>Tel: +39 000 000 0000</div>
-              <div>P.IVA: IT00000000000</div>
-            </div>
-          </footer>
-        </div>
-      </section>
+      {/* SECTION 3: PARLA CON NOI */}
+      <ContactSection lang={safeLang} id="contatti" />
     </VariantPageShell>
   );
 }
