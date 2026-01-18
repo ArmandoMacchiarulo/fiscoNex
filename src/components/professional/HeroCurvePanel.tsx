@@ -28,7 +28,9 @@ export default function HeroCurvePanel({
         </Reveal>
 
         <Reveal delayMs={90} y={10}>
-          <p className="mt-4 max-w-2xl leading-relaxed fn-text-90">{body}</p>
+          <p className="mx-auto mt-3 w-full max-w-2xl text-center leading-relaxed fn-text-90">
+            {body}
+          </p>
         </Reveal>
       </div>
 
