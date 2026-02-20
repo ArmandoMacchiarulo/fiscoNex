@@ -43,9 +43,9 @@ export default async function HomePage({
 }) {
   const locale = isLocale(params.locale) ? (params.locale as Locale) : "it";
   const dict = await getDictionary(locale);
-  const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const otherLocale = locale === "it" ? "en" : "it";
   const otherLabel = otherLocale.toUpperCase();
+  const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
     <main className="min-h-screen">
@@ -53,7 +53,7 @@ export default async function HomePage({
       <div className="fixed right-6 top-6 z-50">
         <Link
           href={`${BASE}/${otherLocale}`}
-          className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-white backdrop-blur-md ring-1 ring-white/25 hover:bg-white/20"
+          className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-black backdrop-blur-md ring-1 ring-white/25 hover:bg-white/20"
           aria-label={`Switch language to ${otherLabel}`}
           title={`Switch to ${otherLabel}`}
         >

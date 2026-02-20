@@ -32,6 +32,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # GitHub Pages publishes this repo under /fiscoNex
+          NEXT_PUBLIC_BASE_PATH: /fiscoNex
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
