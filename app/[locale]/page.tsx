@@ -4,6 +4,9 @@ import Link from "next/link";
 
 import { getDictionary, isLocale, type Locale } from "@/i18n";
 import { getSiteUrl } from "@/seo/site";
+export function generateStaticParams() {
+  return [{ locale: "it" }, { locale: "en" }];
+}
 
 export async function generateMetadata({
   params,
@@ -40,6 +43,7 @@ export default async function HomePage({
 }) {
   const locale = isLocale(params.locale) ? (params.locale as Locale) : "it";
   const dict = await getDictionary(locale);
+  const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const otherLocale = locale === "it" ? "en" : "it";
   const otherLabel = otherLocale.toUpperCase();
 
@@ -48,8 +52,8 @@ export default async function HomePage({
       {/* badge it/en */}
       <div className="fixed right-6 top-6 z-50">
         <Link
-          href={`/${otherLocale}`}
-          className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-black backdrop-blur-md ring-1 ring-white/25 hover:bg-white/20"
+          href={`${BASE}/${otherLocale}`}
+          className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-white backdrop-blur-md ring-1 ring-white/25 hover:bg-white/20"
           aria-label={`Switch language to ${otherLabel}`}
           title={`Switch to ${otherLabel}`}
         >
@@ -62,7 +66,7 @@ export default async function HomePage({
       <section className="relative overflow-hidden text-white min-h-screen">
         <div className="absolute inset-0">
           <Image
-            src="/image/Background_blue.png"
+            src={`${BASE}/image/Background_blue.png`}
             alt=""
             fill
             priority
@@ -73,7 +77,7 @@ export default async function HomePage({
         {/* Diagonal stripes top-right */}
         <div className="absolute right-0 top-0 h-[320px] w-[420px] opacity-90 pointer-events-none">
           <Image
-            src="/image/Linee.svg"
+            src={`${BASE}/image/Linee.svg`}
             alt=""
             fill
             className="object-cover object-top-right scale-[1.08]"
@@ -83,7 +87,7 @@ export default async function HomePage({
         {/* Curved arrow */}
         <div className="absolute left-1/2 top-20 h-[120px] w-[120px] -translate-x-2 opacity-95 pointer-events-none">
           <Image
-            src="/image/freccia.svg"
+            src={`${BASE}/image/freccia.svg`}
             alt=""
             fill
             className="object-contain scale-[1.50]"
@@ -93,7 +97,7 @@ export default async function HomePage({
         <div className="relative mx-auto max-w-[1120px] px-8 pt-12 pb-28">
           <div>
             <Image
-              src="/image/FiscoNex_logo_white.svg"
+              src={`${BASE}/image/FiscoNex_logo_white.svg`}
               alt="FiscoNex"
               width={250}
               height={60}
@@ -115,13 +119,13 @@ export default async function HomePage({
 
               <div className="mt-8 flex gap-4">
                 <Link
-                  href={`/${locale}#soluzioni`}
+                  href={`${BASE}/${locale}#soluzioni`}
                   className="inline-flex items-center justify-center rounded-full bg-[var(--color-accent)] px-8 py-3 font-[var(--font-heading)] text-lg font-bold text-white"
                 >
                   {dict.home.hero.ctaPrimary}
                 </Link>
                 <Link
-                  href={`/${locale}#chi-siamo`}
+                  href={`${BASE}/${locale}#chi-siamo`}
                   className="inline-flex items-center justify-center rounded-full border border-white/60 bg-white/5 px-8 py-3 font-[var(--font-heading)] text-lg font-bold text-white"
                 >
                   {dict.home.hero.ctaSecondary}
@@ -133,7 +137,7 @@ export default async function HomePage({
             <div className="relative">
               <div className="relative ml-auto h-[360px] w-[360px] lg:h-[460px] lg:w-[460px] ">
                 <Image
-                  src="/image/graphic.png"
+                  src={`${BASE}/image/graphic.png`}
                   alt={dict.home.hero.visualAlt}
                   fill
                   className="object-contain scale-[1.12] -translate-x-6 lg:scale-[1.18] lg:-translate-x-10"
@@ -147,7 +151,7 @@ export default async function HomePage({
         {/* Torn paper transition */}
         <div className="absolute -bottom-1 left-0 h-24 w-full">
           <Image
-            src="/image/paper 1.png"
+            src={`${BASE}/image/paper 1.png`}
             alt=""
             fill
             className="object-cover object-top"
@@ -173,7 +177,7 @@ export default async function HomePage({
         {/* paper corner */}
         <div className="absolute right-0 top-0 h-64 w-64 opacity-70 pointer-events-none">
           <Image
-            src="/image/paper 1.png"
+            src={`${BASE}/image/paper 1.png`}
             alt=""
             fill
             className="object-cover object-bottom-left rotate-180"
@@ -181,7 +185,7 @@ export default async function HomePage({
         </div>
         <div className="absolute left-0 bottom-0 h-96 w-96 opacity-70 pointer-events-none">
           <Image
-            src="/image/paper 1.png"
+            src={`${BASE}/image/paper 1.png`}
             alt=""
             fill
             className="object-cover object-bottom-left "
@@ -204,7 +208,7 @@ export default async function HomePage({
           <div className="pointer-events-none">
             <div className="absolute left-8 top-44 h-24 w-24">
               <Image
-                src="/image/lightbulb.webp"
+                src={`${BASE}/image/lightbulb.webp`}
                 alt=""
                 fill
                 className="object-contain"
@@ -212,7 +216,7 @@ export default async function HomePage({
             </div>
             <div className="absolute right-10 top-44 h-24 w-24">
               <Image
-                src="/image/Ruote dentate.svg"
+                src={`${BASE}/image/Ruote dentate.svg`}
                 alt=""
                 fill
                 className="object-contain"
@@ -220,7 +224,7 @@ export default async function HomePage({
             </div>
             <div className="absolute left-1/2 top-[320px] h-10 w-24 -translate-x-1/2">
               <Image
-                src="/image/Linee.png"
+                src={`${BASE}/image/Linee.png`}
                 alt=""
                 fill
                 className="object-contain"
@@ -228,7 +232,7 @@ export default async function HomePage({
             </div>
             <div className="absolute left-1/2 bottom-14 h-16 w-16 -translate-x-1/2">
               <Image
-                src="/image/Croce.png"
+                src={`${BASE}/image/Croce.png`}
                 alt=""
                 fill
                 className="object-contain"
@@ -246,7 +250,7 @@ export default async function HomePage({
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
-                  href={`/${locale}/professional`}
+                  href={`${BASE}/${locale}/professional`}
                   className="inline-flex items-center justify-center rounded-full bg-[var(--color-accent)] px-10 py-3 font-[var(--font-heading)] text-lg font-bold text-white"
                 >
                   {dict.home.solutions.cardCta}
@@ -263,7 +267,7 @@ export default async function HomePage({
               </p>
               <div className="mt-8 flex justify-center">
                 <Link
-                  href={`/${locale}/business`}
+                  href={`${BASE}/${locale}/business`}
                   className="inline-flex items-center justify-center rounded-full bg-[var(--color-accent)] px-10 py-3 font-[var(--font-heading)] text-lg font-bold text-white"
                 >
                   {dict.home.solutions.cardCta}
@@ -304,7 +308,12 @@ export default async function HomePage({
           <div className="mt-16 grid gap-12 md:grid-cols-2 md:justify-items-center">
             <div className="flex items-start gap-4">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#F8D7C9]">
-                <Image src="/image/cuore.svg" alt="" width={100} height={100} />
+                <Image
+                  src={`${BASE}/image/cuore.svg`}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
               </div>
               <div>
                 <h3 className="font-[var(--font-heading)] text-2xl text-[var(--color-accent)]">
@@ -318,7 +327,12 @@ export default async function HomePage({
 
             <div className="flex items-start gap-4">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#F8D7C9]">
-                <Image src="/image/scudo.svg" alt="" width={100} height={100} />
+                <Image
+                  src={`${BASE}/image/scudo.svg`}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
               </div>
               <div>
                 <h3 className="font-[var(--font-heading)] text-2xl text-[var(--color-accent)]">
@@ -342,7 +356,7 @@ export default async function HomePage({
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div>
               <Image
-                src="/image/FiscoNex_logo.svg"
+                src={`${BASE}/image/FiscoNex_logo.svg`}
                 alt="FiscoNex"
                 width={260}
                 height={60}
@@ -356,7 +370,7 @@ export default async function HomePage({
               <ul className="mt-3 space-y-2 text-sm text-[var(--color-secondary)]">
                 <li className="flex items-center gap-2">
                   <Image
-                    src="/image/Social Icon/call.svg"
+                    src={`${BASE}/image/Social Icon/call.svg`}
                     alt=""
                     width={18}
                     height={18}
@@ -365,7 +379,7 @@ export default async function HomePage({
                 </li>
                 <li className="flex items-center gap-2">
                   <Image
-                    src="/image/Social Icon/message.svg"
+                    src={`${BASE}/image/Social Icon/message.svg`}
                     alt=""
                     width={18}
                     height={18}
@@ -382,7 +396,7 @@ export default async function HomePage({
               <ul className="mt-3 space-y-2 text-sm text-[var(--color-secondary)]">
                 <li className="flex items-center gap-2">
                   <Image
-                    src="/image/Social Icon/info.svg"
+                    src={`${BASE}/image/Social Icon/info.svg`}
                     alt=""
                     width={18}
                     height={18}
@@ -391,7 +405,7 @@ export default async function HomePage({
                 </li>
                 <li className="flex items-center gap-2">
                   <Image
-                    src="/image/Social Icon/info.svg"
+                    src={`${BASE}/image/Social Icon/info.svg`}
                     alt=""
                     width={18}
                     height={18}
@@ -427,7 +441,12 @@ export default async function HomePage({
                     aria-label={s.label}
                     title={s.label}
                   >
-                    <Image src={s.icon} alt="" width={16} height={16} />
+                    <Image
+                      src={`${BASE}${s.icon}`}
+                      alt=""
+                      width={16}
+                      height={16}
+                    />
                   </span>
                 ))}
               </div>

@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
 import { isLocale, type Locale } from "@/i18n";
 import { getSiteUrl } from "@/seo/site";
+import type { Metadata } from "next";
+export function generateStaticParams() {
+  return [{ locale: "it" }, { locale: "en" }];
+}
 
 export async function generateMetadata({
   params,
