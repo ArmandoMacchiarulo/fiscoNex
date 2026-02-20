@@ -52,7 +52,7 @@ export default async function HomePage({
       {/* badge it/en */}
       <div className="fixed right-6 top-6 z-50">
         <Link
-          href={`${BASE}/${otherLocale}`}
+          href={`/${otherLocale}`}
           className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-bold text-black backdrop-blur-md ring-1 ring-white/25 hover:bg-white/20"
           aria-label={`Switch language to ${otherLabel}`}
           title={`Switch to ${otherLabel}`}
