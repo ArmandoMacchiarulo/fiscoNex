@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Palette (da documento "font e colori") */
+  --color-light: #f3f4f4;
+  --color-secondary: #2f6690;
+  --color-primary: #0e8bd9;
+  --color-tertiary: #0e1939;
+  --color-accent: #fc703d;
+  --color-accent-2: #cd3a19;
+  --color-light-blue: #ebf6fa;
+
+  --gradient-accent: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-2)
+  );
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-light);
+  color: var(--color-tertiary);
+}
+
+/* Utility “brand” */
+.bg-brand-dark {
+  background: var(--color-tertiary);
+}
+.bg-brand-light {
+  background: var(--color-light);
+}
+.bg-brand-blue {
+  background: var(--color-primary);
+}
+.text-brand-dark {
+  color: var(--color-tertiary);
+}
+.text-brand-blue {
+  color: var(--color-primary);
+}
+.text-brand-secondary {
+  color: var(--color-secondary);
+}
+.text-brand-light {
+  color: var(--color-light);
+}
+.bg-accent-gradient {
+  background: var(--gradient-accent);
+}

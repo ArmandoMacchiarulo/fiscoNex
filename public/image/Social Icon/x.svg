@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 734.3 734.3">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #191817;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1">
+    <g id="social_media_logo_and_contact_us_icons_collection_set">
+      <g id="x">
+        <circle id="circle" class="cls-2" cx="367.15" cy="367.15" r="367.15"/>
+        <path class="cls-1" d="M544.57,539.39l-140.72-202.82,144.61-167.83h-34.54l-125.48,145.62-82.86-119.46-18.16-26.17h-115.85l18.16,26.17,134.53,193.94-152.25,176.71h34.52l133.13-154.52,89.05,128.35,18.14,26.17h115.85l-18.14-26.17ZM460.58,539.39l-103.25-148.83-15.4-22.19-120.33-173.46h52.16l97.06,139.92,15.4,22.21,126.52,182.36h-52.16Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

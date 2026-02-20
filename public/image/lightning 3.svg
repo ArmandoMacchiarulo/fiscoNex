@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Livello_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.29 364.34">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #202020;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+
+      .cls-2 {
+        fill: #ffca00;
+      }
+    </style>
+  </defs>
+  <g id="_Слой_1" data-name="Слой_1">
+    <g id="background">
+      <g>
+        <g id="lightning">
+          <polygon class="cls-2" points="171.51 13.69 56.51 149.86 123.78 147.28 24.77 259.22 69.27 258.46 0 346.72 172.73 232.82 105.71 236.79 234.49 118.62 160.79 124.94 275.68 0 171.51 13.69"/>
+          <polygon class="cls-1" points="191.26 24.97 76.25 161.14 143.53 158.56 44.51 270.5 89.02 269.74 19.75 358.01 192.47 244.11 125.45 248.07 254.24 129.91 180.54 136.23 295.43 11.29 191.26 24.97"/>
+        </g>
+        <g id="lightning-2" data-name="lightning">
+          <polygon class="cls-2" points="404.29 127.44 285.66 166.6 336.73 209.37 221.57 262.74 405.67 216.6 342.74 177.68 404.29 127.44"/>
+          <polygon class="cls-1" points="431.06 136.41 312.42 175.58 363.5 218.34 248.34 271.71 432.43 225.57 369.51 186.65 431.06 136.41"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
